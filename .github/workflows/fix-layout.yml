@@ -1,0 +1,35 @@
+name: Fix greeting layout
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-layout.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair layout
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          a = s.index('<style>')
+          b = s.index('</style>') + len('</style>')
+          css = '''<style>
+          *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}body{background:#f7f1e8;color:#151515;display:flex;justify-content:center;padding:18px 14px 32px}.wrap{width:min(100%,560px);display:flex;flex-direction:column;gap:14px}.card{background:#fff;border:1px solid #e6ddd1;border-radius:22px;padding:26px 26px 24px;box-shadow:0 8px 24px rgba(42,31,20,.07)}.lead{font-size:26px;font-weight:700;margin:0 0 20px}.fact,.punch,.ending{white-space:pre-line}.fact{font-size:19px;line-height:1.55;font-weight:600}.dots{font-size:17px;line-height:1.15;margin:14px 0}.punch{font-size:19px;line-height:1.55;font-weight:400;margin:0 0 22px}.punch:before{content:"<"}.punch:after{content:">"}.ending{padding-top:4px;font-size:19px;line-height:1.5;font-weight:700}.btn{width:100%;border:0;border-radius:16px;background:#1a1a1a;color:#fff;font-family:Arial,sans-serif;font-size:20px;font-weight:700;line-height:1.12;padding:16px 18px;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.12)}.btn:active{transform:translateY(1px)}.error{font-size:19px;line-height:1.55;text-align:center;padding:50px 8px}.ltr{direction:ltr;display:inline-block}@media(max-width:420px){body{padding:12px 10px 24px}.card{border-radius:20px;padding:22px 20px 21px}.lead{font-size:25px;margin-bottom:18px}.fact,.punch,.ending{font-size:18px}.btn{font-size:19px}}
+          </style>'''
+          s = s[:a] + css + s[b:]
+          s = s.replace('punch.textContent=item.punch;', 'punch.textContent=item.punch.replace(/\\n{2,}/g,"\\n");')
+          p.write_text(s)
+      - name: Commit repaired layout
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Repair greeting typography and punch layout"
+          git push
