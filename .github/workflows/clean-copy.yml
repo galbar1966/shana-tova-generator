@@ -1,0 +1,38 @@
+name: Clean greeting copy
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  clean:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize punctuation and comic line breaks
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          # Copy cleanup only. Do not touch CSS or UI.
+          s=re.sub(r'[ \t]+([,.;:!?])', r'\1', s)
+          s=s.replace(' ,', ',').replace(' .', '.').replace(' !', '!').replace(' ?', '?').replace(' :', ':').replace(' ;', ';')
+          # Exact approved wood-frog punchline layout.
+          old='כלומר, היא יכולה להיות קפואה, לא לזוז ולא להגיב לאף אחד במשך תקופה,\\nואז פתאום לחזור לתפקד כאילו כלום לא קרה.\\nבקיצור, כל מי שאי פעם קיבל ממך הודעה ולא ענה שלושה שבועות מצא עכשיו תירוץ מדעי 😈'
+          new='כלומר,\\nהיא יכולה להיות קפואה, לא לזוז ולא להגיב לאף אחד במשך תקופה,\\nואז, פתאום, לחזור לתפקד כאילו כלום לא קרה.\\nבקיצור,\\nכל מי שאי פעם קיבל ממך הודעה ולא ענה שלושה שבועות - מצא עכשיו תירוץ מדעי 😈'
+          s=s.replace(old,new)
+          # Remove accidental blank lines inside stored punchlines, preserving deliberate single line breaks.
+          s=s.replace('\\n\\n','\\n')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit cleanup
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Clean punctuation and punchline layout"
+          git push
