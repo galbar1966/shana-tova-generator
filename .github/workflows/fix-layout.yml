@@ -1,4 +1,4 @@
-name: "Apply dynamic I&AI design"
+name: "Match approved greeting card reference"
 on:
   push:
     branches: [main]
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Apply dynamic purple accent UI
+      - name: Apply approved reference layout
         shell: python
         run: |
           from pathlib import Path
@@ -22,22 +22,68 @@ jobs:
           s=p.read_text(encoding='utf-8')
           a=s.index('<style>')
           b=s.index('</style>')+len('</style>')
-          css='''<style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}body{position:relative;overflow-x:hidden;background:radial-gradient(circle at 12% 4%,rgba(139,92,246,.13),transparent 28%),radial-gradient(circle at 92% 34%,rgba(109,40,217,.08),transparent 25%),#f7f7fb;color:#171525;display:flex;justify-content:center;padding:22px 14px 34px}.wrap{position:relative;width:min(100%,580px);display:flex;flex-direction:column;gap:15px}.card{position:relative;overflow:hidden;background:rgba(255,255,255,.96);border:1px solid rgba(104,71,160,.13);border-radius:28px;padding:29px 27px 25px;box-shadow:0 20px 55px rgba(38,27,72,.11)}.card:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(124,58,237,.07);left:-80px;top:-78px}.lead{position:relative;display:inline-block;font-size:29px;font-weight:800;margin:0 0 22px;color:#6d28d9;letter-spacing:-.4px}.lead:after{content:"";position:absolute;right:0;bottom:-7px;width:54px;height:4px;border-radius:99px;background:linear-gradient(90deg,#8b5cf6,#c4b5fd)}.fact,.punch,.ending{position:relative;white-space:pre-line}.fact{font-size:21px;line-height:1.55;font-weight:700;color:#1e1b2e}.dots{position:relative;font-size:18px;line-height:1.02;margin:15px 0;color:#8b5cf6;font-weight:800}.punch{font-size:20px;line-height:1.55;font-weight:600;margin:0 0 23px;padding:18px 19px;background:linear-gradient(135deg,rgba(139,92,246,.105),rgba(196,181,253,.17));border:1px solid rgba(124,58,237,.12);border-radius:18px;color:#2b2141;box-shadow:inset 4px 0 0 rgba(124,58,237,.48)}.ending{padding-top:4px;font-size:19px;line-height:1.5;font-weight:700;color:#302747}.btn{position:relative;overflow:hidden;width:100%;border:0;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;font-family:Arial,sans-serif;font-size:20px;font-weight:800;line-height:1.12;padding:16px 18px;cursor:pointer;box-shadow:0 11px 26px rgba(91,33,182,.25);transition:transform .16s ease,box-shadow .16s ease}.btn:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18) 48%,transparent 70%);transform:translateX(120%);transition:transform .55s ease}.btn:hover{transform:translateY(-2px);box-shadow:0 14px 31px rgba(91,33,182,.31)}.btn:hover:before{transform:translateX(-120%)}.btn:active{transform:translateY(1px)}.brand{direction:rtl;text-align:center;padding:10px 8px 2px;color:#8b8796}.brand-name{direction:ltr;font-size:30px;line-height:1;font-weight:900;letter-spacing:-1.2px;color:#7c3aed;margin-bottom:7px}.brand-line{font-size:13px;line-height:1.45;font-weight:600;color:#716d7b}.brand-joke{font-size:11px;line-height:1.45;margin-top:3px;color:#9b97a4}.error{font-size:19px;line-height:1.55;text-align:center;padding:50px 8px}.ltr{direction:ltr;display:inline-block}@keyframes greetingIn{0%{opacity:.35;transform:translateY(7px) scale(.995)}100%{opacity:1;transform:none}}.card.fresh{animation:greetingIn .28s ease-out}@media(max-width:420px){body{padding:12px 10px 24px}.wrap{gap:12px}.card{border-radius:23px;padding:24px 20px 21px}.lead{font-size:27px;margin-bottom:19px}.fact{font-size:19px;line-height:1.52}.punch{font-size:18px;line-height:1.52;padding:16px 15px;margin-bottom:20px}.ending{font-size:18px}.btn{font-size:19px;border-radius:17px;padding:15px 16px}.brand-name{font-size:28px}.brand-line{font-size:12px}.brand-joke{font-size:10.5px}}</style>'''
+          css=r'''<style>
+          *{box-sizing:border-box}
+          html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}
+          body{background:#f1f0f7;color:#17172a;padding:0;overflow-x:hidden}
+          .shell{width:min(100%,680px);margin:0 auto;min-height:100vh;background:transparent;padding:16px 14px 0}
+          .card{position:relative;background:#fff;border-radius:30px 30px 0 0;overflow:visible;box-shadow:0 16px 45px rgba(36,28,79,.10)}
+          .hero{position:relative;height:min(74vw,760px);min-height:560px;max-height:760px;background:#dddbe6;overflow:hidden;border-radius:30px 30px 0 0}
+          .hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:1;transition:opacity .25s ease}
+          .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 64%,rgba(255,255,255,.08) 100%);pointer-events:none}
+          .fact-card{position:absolute;top:48px;right:28px;width:43%;z-index:5;background:rgba(255,255,255,.97);border:1px solid rgba(102,39,190,.08);border-radius:26px;padding:28px 24px 27px;box-shadow:0 18px 38px rgba(32,25,66,.15)}
+          .lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:8px;color:#6727d4;font-size:31px;font-weight:900;line-height:1;margin:0 0 24px;white-space:nowrap;letter-spacing:-.3px}
+          .bulb{font-size:32px;line-height:1;flex:none;order:0}
+          .fact{font-size:20px;line-height:1.5;font-weight:700;white-space:pre-line;color:#1f2036;text-align:right}
+          .lower{position:relative;z-index:6;margin:-58px 28px 0;background:#fff;border-radius:28px 28px 0 0;padding:16px 14px 8px;box-shadow:0 -8px 24px rgba(32,25,66,.08)}
+          .dots{font-size:17px;line-height:1.02;font-weight:900;color:#7530e4;text-align:center;margin:0 0 14px}
+          .punch{font-size:19px;line-height:1.52;font-weight:700;white-space:pre-line;text-align:center;color:#22223a;background:linear-gradient(135deg,#f7f2ff,#efe7fb);border:1px solid #e6d9f8;border-radius:22px;padding:21px 20px;box-shadow:inset 4px 0 0 #b78af2}
+          .divider{display:flex;align-items:center;gap:13px;margin:20px 18px 13px;color:#9495a8}
+          .divider:before,.divider:after{content:"";height:1px;background:#d7d8e3;flex:1}
+          .divider span{font-size:25px;line-height:1;color:#8f91a6}
+          .ending{text-align:center;color:#747689;font-size:17px;line-height:1.5;font-weight:700;padding:0 10px 8px}
+          .btn{display:block;width:calc(100% - 56px);margin:14px 28px 22px;border:0;border-radius:24px;padding:17px 18px;background:linear-gradient(135deg,#7d35ef,#6120ca);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 13px 28px rgba(98,32,202,.28)}
+          .ltr{direction:ltr;display:inline-block}
+          .brand{margin:0 -14px;background:linear-gradient(145deg,#22214e,#282a61);color:#fff;text-align:center;padding:30px 16px 34px;border-radius:50% 50% 0 0 / 10% 10% 0 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+          .brand-name{direction:ltr;color:#9445ea;font-size:39px;font-weight:900;letter-spacing:-1.3px;line-height:1;margin-bottom:10px}
+          .brand-line{font-size:14px;line-height:1.45;font-weight:700;color:#f0eff7}
+          .brand-joke{font-size:12px;line-height:1.45;margin-top:5px;color:#d3d0df}
+          .brand-joke em{font-style:italic;font-weight:900;color:#fff}
+          .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55;box-shadow:0 15px 40px rgba(30,28,70,.12)}
+          @media(max-width:520px){
+            .shell{width:100%;padding:10px 9px 0}
+            .card{border-radius:26px 26px 0 0}
+            .hero{height:76vh;min-height:600px;max-height:760px;border-radius:26px 26px 0 0}
+            .fact-card{top:38px;right:18px;width:46%;padding:23px 18px 22px;border-radius:23px}
+            .lead{font-size:27px;margin-bottom:19px;gap:6px}
+            .bulb{font-size:28px}
+            .fact{font-size:17px;line-height:1.45}
+            .lower{margin:-54px 18px 0;padding:16px 13px 8px;border-radius:26px 26px 0 0}
+            .punch{font-size:17.5px;line-height:1.48;padding:19px 16px}
+            .ending{font-size:16px}
+            .btn{width:calc(100% - 36px);margin:14px 18px 20px;font-size:19px;padding:16px;border-radius:21px}
+            .brand{margin:0 -9px;padding:28px 14px calc(31px + env(safe-area-inset-bottom));border-radius:50% 50% 0 0 / 8% 8% 0 0}
+            .brand-name{font-size:35px}
+          }
+          @media(max-width:380px){
+            .hero{min-height:560px}
+            .fact-card{right:14px;top:30px;width:48%;padding:20px 15px}
+            .lead{font-size:24px}
+            .bulb{font-size:25px}
+            .fact{font-size:15.8px}
+            .lower{margin-left:12px;margin-right:12px}
+            .punch{font-size:16.5px}
+            .btn{width:calc(100% - 24px);margin-left:12px;margin-right:12px}
+          }
+          </style>'''
           s=s[:a]+css+s[b:]
-          old='</section><button class="btn" id="next"><span class="ltr">Hit me, baby,<br>One more time</span></button></main>'
-          new='</section><button class="btn" id="next"><span class="ltr">Hit me, baby,<br>One more time</span></button><footer class="brand"><div class="brand-name">I&amp;AI</div><div class="brand-line">גל.בר | מערכות, אוטומציות, תוכן ו-AI</div><div class="brand-joke">(אנחנו עושים גם דברים שאפשר להראות לאמא...)</div></footer></main>'
-          if '<footer class="brand">' not in s:
-              s=s.replace(old,new)
-          marker='punch.textContent="<"+item.punch.replace(/\\n{2,}/g,"\\n")+">";'
-          if 'card.classList.remove("fresh")' not in s and marker in s:
-              s=s.replace(marker,marker+'card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");')
           p.write_text(s,encoding='utf-8')
-      - name: Commit design
+      - name: Commit approved layout
         run: |
           if git diff --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Launch dynamic purple accent I&AI design"
+          git commit -m "Match approved greeting card reference"
           git pull --rebase origin main
           git push origin main
