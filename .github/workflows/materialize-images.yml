@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'assets/animals/*.base64'
+      - '.github/workflows/materialize-images.yml'
   workflow_dispatch:
 permissions:
   contents: write
