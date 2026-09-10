@@ -1,4 +1,4 @@
-name: Apply approved visual template
+name: Apply approved greeting layout
 on:
   push:
     branches: [main]
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Rebuild approved layout only
+      - name: Apply approved reference layout
         shell: python
         run: |
           from pathlib import Path
@@ -24,41 +24,57 @@ jobs:
           style=r'''<style>
           *{box-sizing:border-box}
           html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}
-          body{background:linear-gradient(180deg,#eef2fb 0%,#f7f6fb 58%,#ececf4 100%);color:#17172a;padding:0}
-          .shell{width:min(100%,620px);margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 18px 60px rgba(31,28,75,.12);overflow:hidden}
-          .card{position:relative;background:#fff;overflow:hidden}
-          .hero{position:relative;height:clamp(500px,74vw,720px);max-height:720px;background:#e9e8f0;overflow:hidden}
-          .hero img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;opacity:0;transition:opacity .28s ease}
-          .hero.ready img{opacity:1}
-          .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,53,0) 55%,rgba(23,19,53,.10) 100%);pointer-events:none}
-          .fact-card{position:absolute;top:44px;right:26px;width:min(45%,280px);z-index:3;background:rgba(255,255,255,.96);border:1px solid rgba(111,43,217,.08);border-radius:25px;padding:25px 24px 24px;box-shadow:0 16px 35px rgba(27,24,59,.13);backdrop-filter:blur(8px)}
-          .lead{display:flex;align-items:center;justify-content:flex-start;gap:9px;color:#6929d7;font-size:30px;font-weight:900;line-height:1.05;margin:0 0 22px;white-space:nowrap}
-          .bulb{font-size:31px;line-height:1;flex:none;order:-1}
-          .fact{font-size:19px;line-height:1.48;font-weight:700;white-space:pre-line;color:#202038}
-          .lower{position:relative;z-index:4;margin:-52px 28px 0;background:#fff;border-radius:29px 29px 0 0;padding:18px 16px 22px;box-shadow:0 -10px 30px rgba(31,28,75,.10)}
-          .dots{font-size:17px;line-height:1.02;font-weight:900;color:#7c3aed;text-align:center;margin:0 0 13px}
-          .punch{font-size:19px;line-height:1.5;font-weight:700;white-space:pre-line;text-align:center;color:#22223c;background:linear-gradient(135deg,#f7f1ff 0%,#efe8fb 100%);border:1px solid #e5d8f7;border-radius:22px;padding:22px 22px}
-          .divider{display:flex;align-items:center;gap:12px;margin:20px 18px 14px;color:#9a98ac}
-          .divider:before,.divider:after{content:"";height:1px;background:#d9d9e6;flex:1}
-          .divider span{font-size:24px;line-height:1;color:#9092a8}
-          .ending{text-align:center;color:#7a7b90;font-size:17px;line-height:1.52;font-weight:700;padding:0 12px 3px}
-          .btn{width:calc(100% - 58px);margin:17px 29px 0;border:0;border-radius:24px;padding:17px 18px;background:linear-gradient(135deg,#7e35ef,#6421cb);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(99,35,203,.30)}
+          body{background:#f2f2f8;color:#17172a;overflow-x:hidden}
+          .shell{width:min(100%,760px);margin:0 auto;padding:0 10px;min-height:100vh}
+          .card{position:relative;background:#fff;border-radius:30px 30px 0 0;overflow:hidden;box-shadow:0 16px 48px rgba(32,25,66,.12)}
+          .hero{position:relative;height:min(85vw,646px);min-height:500px;overflow:hidden;background:#e7e5ed}
+          .hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;opacity:1;transition:opacity .2s ease}
+          .hero:after{content:"";position:absolute;inset:auto 0 0;height:18%;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.08));pointer-events:none}
+          .fact-card{position:absolute;z-index:4;top:6%;right:4.5%;width:44%;background:rgba(255,255,255,.97);border-radius:24px;padding:25px 24px 26px;box-shadow:0 15px 34px rgba(25,20,60,.15)}
+          .lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:9px;margin:0 0 21px;color:#6f26dc;font-size:31px;font-weight:900;line-height:1;white-space:nowrap;letter-spacing:-.4px}
+          .bulb{order:0;font-size:30px;line-height:1;flex:none}
+          .fact{direction:rtl;text-align:right;white-space:pre-line;color:#24253a;font-size:20px;line-height:1.52;font-weight:700}
+          .lower{position:relative;z-index:5;margin:-96px 6.5% 0;background:#fff;border-radius:26px 26px 0 0;padding:22px 22px 5px;box-shadow:0 -8px 24px rgba(32,25,66,.08)}
+          .dots{margin:0 0 13px;text-align:center;color:#7630e5;font-size:17px;font-weight:900;line-height:1.02}
+          .punch{direction:rtl;text-align:center;white-space:pre-line;background:linear-gradient(135deg,#f7f2ff,#efe7fb);border:1px solid #e6d9f8;border-radius:20px;padding:21px 24px;color:#24243a;font-size:19px;line-height:1.55;font-weight:700;box-shadow:inset 4px 0 0 #b687f0}
+          .divider{display:flex;align-items:center;gap:14px;margin:19px 10px 12px;color:#9496a9}
+          .divider:before,.divider:after{content:"";height:1px;background:#d4d5df;flex:1}
+          .divider span{font-size:23px;line-height:1}
+          .ending{direction:rtl;text-align:center;color:#717487;font-size:17px;line-height:1.5;font-weight:700;padding:0 8px 7px}
+          .btn{display:block;width:52%;min-width:300px;max-width:500px;margin:15px auto 28px;border:0;border-radius:22px;padding:17px 22px;background:linear-gradient(135deg,#8136f0,#6120cb);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 12px 26px rgba(98,32,202,.28)}
           .ltr{direction:ltr;display:inline-block}
-          .brand{margin-top:24px;background:linear-gradient(145deg,#20204f 0%,#26295f 100%);color:#fff;text-align:center;padding:27px 16px 31px;border-radius:52% 52% 0 0 / 12% 12% 0 0}
-          .brand-name{direction:ltr;color:#9848ed;font-size:38px;font-weight:900;letter-spacing:-1.4px;line-height:1;margin-bottom:9px}
-          .brand-line{font-size:14px;line-height:1.45;font-weight:700;color:#f1f0f8}
-          .brand-joke{font-size:12px;line-height:1.45;margin-top:5px;color:#d6d3e2}
+          .brand{position:relative;margin-top:0;background:linear-gradient(145deg,#24234f,#292b61);color:#fff;text-align:center;padding:48px 16px 36px;border-radius:50% 50% 0 0 / 9% 9% 0 0}
+          .brand-name{direction:ltr;color:#9646ec;font-size:40px;font-weight:900;letter-spacing:-1.3px;line-height:1;margin-bottom:10px}
+          .brand-line{direction:rtl;font-size:14px;line-height:1.45;font-weight:700;color:#f2f1f7}
+          .brand-joke{direction:rtl;font-size:12px;line-height:1.45;margin-top:5px;color:#d0cedd}
           .brand-joke em{font-style:italic;font-weight:900;color:#fff}
           .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55;box-shadow:0 15px 40px rgba(30,28,70,.12)}
-          @media(max-width:520px){.shell{width:100%;box-shadow:none}.hero{height:68vh;min-height:500px;max-height:690px}.fact-card{top:34px;right:18px;width:48%;max-width:none;border-radius:23px;padding:21px 18px 20px}.lead{font-size:27px;margin-bottom:18px;gap:7px}.bulb{font-size:28px}.fact{font-size:17px;line-height:1.43}.lower{margin:-48px 18px 0;padding:17px 14px 20px;border-radius:27px 27px 0 0}.punch{font-size:17.5px;line-height:1.48;padding:20px 17px}.ending{font-size:16px}.btn{width:calc(100% - 36px);margin:16px 18px 0;font-size:19px;padding:16px;border-radius:21px}.brand{padding-bottom:calc(28px + env(safe-area-inset-bottom));border-radius:48% 48% 0 0 / 9% 9% 0 0}.brand-name{font-size:35px}}
-          @media(max-width:380px){.hero{min-height:470px}.fact-card{width:50%;right:14px;top:28px;padding:18px 15px}.lead{font-size:24px}.bulb{font-size:25px}.fact{font-size:15.8px}.lower{margin-left:12px;margin-right:12px}.punch{font-size:16.5px}.btn{width:calc(100% - 24px);margin-left:12px;margin-right:12px}}
+          @media(max-width:600px){
+            .shell{padding:0 8px}
+            .card{border-radius:24px 24px 0 0}
+            .hero{height:86vw;min-height:0;max-height:none}
+            .fact-card{top:5.5%;right:4.2%;width:45%;padding:20px 17px 21px;border-radius:21px}
+            .lead{font-size:clamp(23px,4.2vw,29px);margin-bottom:17px;gap:6px}
+            .bulb{font-size:clamp(24px,4vw,29px)}
+            .fact{font-size:clamp(15px,2.75vw,18px);line-height:1.48}
+            .lower{margin-top:-9vw;margin-left:6%;margin-right:6%;padding:18px 14px 5px;border-radius:23px 23px 0 0}
+            .punch{font-size:clamp(16px,2.8vw,18px);line-height:1.5;padding:18px 15px}
+            .ending{font-size:clamp(15px,2.6vw,17px)}
+            .btn{width:68%;min-width:250px;font-size:19px;margin-top:13px;margin-bottom:24px;padding:16px 18px;border-radius:20px}
+            .brand{padding:42px 14px calc(32px + env(safe-area-inset-bottom));border-radius:50% 50% 0 0 / 7% 7% 0 0}
+            .brand-name{font-size:36px}
+          }
+          @media(max-width:390px){
+            .fact-card{width:48%;right:3.6%;top:4.6%;padding:17px 14px 18px}
+            .lead{font-size:22px;margin-bottom:14px}
+            .bulb{font-size:23px}
+            .fact{font-size:14px;line-height:1.42}
+            .lower{margin-left:5%;margin-right:5%;padding-left:11px;padding-right:11px}
+            .punch{font-size:15.5px;padding:16px 12px}
+            .btn{width:76%;min-width:0}
+          }
           </style>'''
           s=re.sub(r'<style>.*?</style>',style,s,flags=re.S)
-          body='''<body>\n<main class="shell" id="app">\n  <section class="card" id="card">\n    <div class="hero" id="hero"><img id="animalImage" alt=""></div>\n    <div class="fact-card">\n      <div class="lead"><span>הידעת ש...</span><span class="bulb">💡</span></div>\n      <div class="fact" id="fact"></div>\n    </div>\n    <div class="lower">\n      <div class="dots">.<br>.<br>.</div>\n      <div class="punch" id="punch"></div>\n      <div class="divider"><span>♡</span></div>\n      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n    </div>\n    <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>\n    <footer class="brand">\n      <div class="brand-name">I&amp;AI</div>\n      <div class="brand-line">גל.בר | מערכות, אוטומציות, תוכן ו-AI</div>\n      <div class="brand-joke">(אנחנו עושים <em>גם</em> דברים שאפשר להראות לאמא...)</div>\n    </footer>\n  </section>\n</main>\n'''
-          s=re.sub(r'<body>.*?<script>',body+'<script>',s,flags=re.S)
-          if 'const IMAGE_BY_ID=' not in s:
-              s=s.replace('<script>','<script>\nconst IMAGE_BY_ID=Object.fromEntries(Array.from({length:61},(_,i)=>[i+1,`assets/animals/${String(i+1).padStart(3,"0")}.webp`]));',1)
-          s=s.replace("image.src=(window.SHANA_IMAGES&&window.SHANA_IMAGES[item.id])||'';","image.src=IMAGE_BY_ID[item.id]||'';")
           p.write_text(s,encoding='utf-8')
       - name: Commit approved layout
         run: |
@@ -66,6 +82,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Match approved greeting card template"
+          git commit -m "Apply approved card proportions exactly"
           git pull --rebase origin main
           git push origin main
