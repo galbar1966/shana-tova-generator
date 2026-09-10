@@ -1,0 +1,71 @@
+name: Apply approved visual template
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-approved-layout.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Rebuild approved layout only
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          style=r'''<style>
+          *{box-sizing:border-box}
+          html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}
+          body{background:linear-gradient(180deg,#eef2fb 0%,#f7f6fb 58%,#ececf4 100%);color:#17172a;padding:0}
+          .shell{width:min(100%,620px);margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 18px 60px rgba(31,28,75,.12);overflow:hidden}
+          .card{position:relative;background:#fff;overflow:hidden}
+          .hero{position:relative;height:clamp(500px,74vw,720px);max-height:720px;background:#e9e8f0;overflow:hidden}
+          .hero img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;opacity:0;transition:opacity .28s ease}
+          .hero.ready img{opacity:1}
+          .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,53,0) 55%,rgba(23,19,53,.10) 100%);pointer-events:none}
+          .fact-card{position:absolute;top:44px;right:26px;width:min(45%,280px);z-index:3;background:rgba(255,255,255,.96);border:1px solid rgba(111,43,217,.08);border-radius:25px;padding:25px 24px 24px;box-shadow:0 16px 35px rgba(27,24,59,.13);backdrop-filter:blur(8px)}
+          .lead{display:flex;align-items:center;justify-content:flex-start;gap:9px;color:#6929d7;font-size:30px;font-weight:900;line-height:1.05;margin:0 0 22px;white-space:nowrap}
+          .bulb{font-size:31px;line-height:1;flex:none;order:-1}
+          .fact{font-size:19px;line-height:1.48;font-weight:700;white-space:pre-line;color:#202038}
+          .lower{position:relative;z-index:4;margin:-52px 28px 0;background:#fff;border-radius:29px 29px 0 0;padding:18px 16px 22px;box-shadow:0 -10px 30px rgba(31,28,75,.10)}
+          .dots{font-size:17px;line-height:1.02;font-weight:900;color:#7c3aed;text-align:center;margin:0 0 13px}
+          .punch{font-size:19px;line-height:1.5;font-weight:700;white-space:pre-line;text-align:center;color:#22223c;background:linear-gradient(135deg,#f7f1ff 0%,#efe8fb 100%);border:1px solid #e5d8f7;border-radius:22px;padding:22px 22px}
+          .divider{display:flex;align-items:center;gap:12px;margin:20px 18px 14px;color:#9a98ac}
+          .divider:before,.divider:after{content:"";height:1px;background:#d9d9e6;flex:1}
+          .divider span{font-size:24px;line-height:1;color:#9092a8}
+          .ending{text-align:center;color:#7a7b90;font-size:17px;line-height:1.52;font-weight:700;padding:0 12px 3px}
+          .btn{width:calc(100% - 58px);margin:17px 29px 0;border:0;border-radius:24px;padding:17px 18px;background:linear-gradient(135deg,#7e35ef,#6421cb);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(99,35,203,.30)}
+          .ltr{direction:ltr;display:inline-block}
+          .brand{margin-top:24px;background:linear-gradient(145deg,#20204f 0%,#26295f 100%);color:#fff;text-align:center;padding:27px 16px 31px;border-radius:52% 52% 0 0 / 12% 12% 0 0}
+          .brand-name{direction:ltr;color:#9848ed;font-size:38px;font-weight:900;letter-spacing:-1.4px;line-height:1;margin-bottom:9px}
+          .brand-line{font-size:14px;line-height:1.45;font-weight:700;color:#f1f0f8}
+          .brand-joke{font-size:12px;line-height:1.45;margin-top:5px;color:#d6d3e2}
+          .brand-joke em{font-style:italic;font-weight:900;color:#fff}
+          .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55;box-shadow:0 15px 40px rgba(30,28,70,.12)}
+          @media(max-width:520px){.shell{width:100%;box-shadow:none}.hero{height:68vh;min-height:500px;max-height:690px}.fact-card{top:34px;right:18px;width:48%;max-width:none;border-radius:23px;padding:21px 18px 20px}.lead{font-size:27px;margin-bottom:18px;gap:7px}.bulb{font-size:28px}.fact{font-size:17px;line-height:1.43}.lower{margin:-48px 18px 0;padding:17px 14px 20px;border-radius:27px 27px 0 0}.punch{font-size:17.5px;line-height:1.48;padding:20px 17px}.ending{font-size:16px}.btn{width:calc(100% - 36px);margin:16px 18px 0;font-size:19px;padding:16px;border-radius:21px}.brand{padding-bottom:calc(28px + env(safe-area-inset-bottom));border-radius:48% 48% 0 0 / 9% 9% 0 0}.brand-name{font-size:35px}}
+          @media(max-width:380px){.hero{min-height:470px}.fact-card{width:50%;right:14px;top:28px;padding:18px 15px}.lead{font-size:24px}.bulb{font-size:25px}.fact{font-size:15.8px}.lower{margin-left:12px;margin-right:12px}.punch{font-size:16.5px}.btn{width:calc(100% - 24px);margin-left:12px;margin-right:12px}}
+          </style>'''
+          s=re.sub(r'<style>.*?</style>',style,s,flags=re.S)
+          body='''<body>\n<main class="shell" id="app">\n  <section class="card" id="card">\n    <div class="hero" id="hero"><img id="animalImage" alt=""></div>\n    <div class="fact-card">\n      <div class="lead"><span>הידעת ש...</span><span class="bulb">💡</span></div>\n      <div class="fact" id="fact"></div>\n    </div>\n    <div class="lower">\n      <div class="dots">.<br>.<br>.</div>\n      <div class="punch" id="punch"></div>\n      <div class="divider"><span>♡</span></div>\n      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n    </div>\n    <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>\n    <footer class="brand">\n      <div class="brand-name">I&amp;AI</div>\n      <div class="brand-line">גל.בר | מערכות, אוטומציות, תוכן ו-AI</div>\n      <div class="brand-joke">(אנחנו עושים <em>גם</em> דברים שאפשר להראות לאמא...)</div>\n    </footer>\n  </section>\n</main>\n'''
+          s=re.sub(r'<body>.*?<script>',body+'<script>',s,flags=re.S)
+          if 'const IMAGE_BY_ID=' not in s:
+              s=s.replace('<script>','<script>\nconst IMAGE_BY_ID=Object.fromEntries(Array.from({length:61},(_,i)=>[i+1,`assets/animals/${String(i+1).padStart(3,"0")}.webp`]));',1)
+          s=s.replace("image.src=(window.SHANA_IMAGES&&window.SHANA_IMAGES[item.id])||'';","image.src=IMAGE_BY_ID[item.id]||'';")
+          p.write_text(s,encoding='utf-8')
+      - name: Commit approved layout
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Match approved greeting card template"
+          git pull --rebase origin main
+          git push origin main
