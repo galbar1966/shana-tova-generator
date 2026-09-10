@@ -7,34 +7,56 @@
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}
-body{background:linear-gradient(180deg,#eef2fb 0%,#f7f6fb 58%,#ececf4 100%);color:#17172a;padding:0}
-.shell{width:min(100%,620px);margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 18px 60px rgba(31,28,75,.12);overflow:hidden}
-.card{position:relative;background:#fff;overflow:hidden}
-.hero{position:relative;height:clamp(500px,74vw,720px);max-height:720px;background:#e9e8f0;overflow:hidden}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;opacity:0;transition:opacity .28s ease}
-.hero.ready img{opacity:1}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,53,0) 55%,rgba(23,19,53,.10) 100%);pointer-events:none}
-.fact-card{position:absolute;top:44px;right:26px;width:min(45%,280px);z-index:3;background:rgba(255,255,255,.96);border:1px solid rgba(111,43,217,.08);border-radius:25px;padding:25px 24px 24px;box-shadow:0 16px 35px rgba(27,24,59,.13);backdrop-filter:blur(8px)}
-.lead{display:flex;align-items:center;justify-content:flex-start;gap:9px;color:#6929d7;font-size:30px;font-weight:900;line-height:1.05;margin:0 0 22px;white-space:nowrap}
-.bulb{font-size:31px;line-height:1;flex:none;order:-1}
-.fact{font-size:19px;line-height:1.48;font-weight:700;white-space:pre-line;color:#202038}
-.lower{position:relative;z-index:4;margin:-52px 28px 0;background:#fff;border-radius:29px 29px 0 0;padding:18px 16px 22px;box-shadow:0 -10px 30px rgba(31,28,75,.10)}
-.dots{font-size:17px;line-height:1.02;font-weight:900;color:#7c3aed;text-align:center;margin:0 0 13px}
-.punch{font-size:19px;line-height:1.5;font-weight:700;white-space:pre-line;text-align:center;color:#22223c;background:linear-gradient(135deg,#f7f1ff 0%,#efe8fb 100%);border:1px solid #e5d8f7;border-radius:22px;padding:22px 22px}
-.divider{display:flex;align-items:center;gap:12px;margin:20px 18px 14px;color:#9a98ac}
-.divider:before,.divider:after{content:"";height:1px;background:#d9d9e6;flex:1}
-.divider span{font-size:24px;line-height:1;color:#9092a8}
-.ending{text-align:center;color:#7a7b90;font-size:17px;line-height:1.52;font-weight:700;padding:0 12px 3px}
-.btn{width:calc(100% - 58px);margin:17px 29px 0;border:0;border-radius:24px;padding:17px 18px;background:linear-gradient(135deg,#7e35ef,#6421cb);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(99,35,203,.30)}
+body{background:#f1f0f7;color:#17172a;padding:0;overflow-x:hidden}
+.shell{width:min(100%,680px);margin:0 auto;min-height:100vh;background:transparent;padding:16px 14px 0}
+.card{position:relative;background:#fff;border-radius:30px 30px 0 0;overflow:visible;box-shadow:0 16px 45px rgba(36,28,79,.10)}
+.hero{position:relative;height:min(74vw,760px);min-height:560px;max-height:760px;background:#dddbe6;overflow:hidden;border-radius:30px 30px 0 0}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:1;transition:opacity .25s ease}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 64%,rgba(255,255,255,.08) 100%);pointer-events:none}
+.fact-card{position:absolute;top:48px;right:28px;width:43%;z-index:5;background:rgba(255,255,255,.97);border:1px solid rgba(102,39,190,.08);border-radius:26px;padding:28px 24px 27px;box-shadow:0 18px 38px rgba(32,25,66,.15)}
+.lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:8px;color:#6727d4;font-size:31px;font-weight:900;line-height:1;margin:0 0 24px;white-space:nowrap;letter-spacing:-.3px}
+.bulb{font-size:32px;line-height:1;flex:none;order:0}
+.fact{font-size:20px;line-height:1.5;font-weight:700;white-space:pre-line;color:#1f2036;text-align:right}
+.lower{position:relative;z-index:6;margin:-58px 28px 0;background:#fff;border-radius:28px 28px 0 0;padding:16px 14px 8px;box-shadow:0 -8px 24px rgba(32,25,66,.08)}
+.dots{font-size:17px;line-height:1.02;font-weight:900;color:#7530e4;text-align:center;margin:0 0 14px}
+.punch{font-size:19px;line-height:1.52;font-weight:700;white-space:pre-line;text-align:center;color:#22223a;background:linear-gradient(135deg,#f7f2ff,#efe7fb);border:1px solid #e6d9f8;border-radius:22px;padding:21px 20px;box-shadow:inset 4px 0 0 #b78af2}
+.divider{display:flex;align-items:center;gap:13px;margin:20px 18px 13px;color:#9495a8}
+.divider:before,.divider:after{content:"";height:1px;background:#d7d8e3;flex:1}
+.divider span{font-size:25px;line-height:1;color:#8f91a6}
+.ending{text-align:center;color:#747689;font-size:17px;line-height:1.5;font-weight:700;padding:0 10px 8px}
+.btn{display:block;width:calc(100% - 56px);margin:14px 28px 22px;border:0;border-radius:24px;padding:17px 18px;background:linear-gradient(135deg,#7d35ef,#6120ca);color:#fff;font:900 20px/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 13px 28px rgba(98,32,202,.28)}
 .ltr{direction:ltr;display:inline-block}
-.brand{margin-top:24px;background:linear-gradient(145deg,#20204f 0%,#26295f 100%);color:#fff;text-align:center;padding:27px 16px 31px;border-radius:52% 52% 0 0 / 12% 12% 0 0}
-.brand-name{direction:ltr;color:#9848ed;font-size:38px;font-weight:900;letter-spacing:-1.4px;line-height:1;margin-bottom:9px}
-.brand-line{font-size:14px;line-height:1.45;font-weight:700;color:#f1f0f8}
-.brand-joke{font-size:12px;line-height:1.45;margin-top:5px;color:#d6d3e2}
+.brand{margin:0 -14px;background:linear-gradient(145deg,#22214e,#282a61);color:#fff;text-align:center;padding:30px 16px 34px;border-radius:50% 50% 0 0 / 10% 10% 0 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.brand-name{direction:ltr;color:#9445ea;font-size:39px;font-weight:900;letter-spacing:-1.3px;line-height:1;margin-bottom:10px}
+.brand-line{font-size:14px;line-height:1.45;font-weight:700;color:#f0eff7}
+.brand-joke{font-size:12px;line-height:1.45;margin-top:5px;color:#d3d0df}
 .brand-joke em{font-style:italic;font-weight:900;color:#fff}
 .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55;box-shadow:0 15px 40px rgba(30,28,70,.12)}
-@media(max-width:520px){.shell{width:100%;box-shadow:none}.hero{height:68vh;min-height:500px;max-height:690px}.fact-card{top:34px;right:18px;width:48%;max-width:none;border-radius:23px;padding:21px 18px 20px}.lead{font-size:27px;margin-bottom:18px;gap:7px}.bulb{font-size:28px}.fact{font-size:17px;line-height:1.43}.lower{margin:-48px 18px 0;padding:17px 14px 20px;border-radius:27px 27px 0 0}.punch{font-size:17.5px;line-height:1.48;padding:20px 17px}.ending{font-size:16px}.btn{width:calc(100% - 36px);margin:16px 18px 0;font-size:19px;padding:16px;border-radius:21px}.brand{padding-bottom:calc(28px + env(safe-area-inset-bottom));border-radius:48% 48% 0 0 / 9% 9% 0 0}.brand-name{font-size:35px}}
-@media(max-width:380px){.hero{min-height:470px}.fact-card{width:50%;right:14px;top:28px;padding:18px 15px}.lead{font-size:24px}.bulb{font-size:25px}.fact{font-size:15.8px}.lower{margin-left:12px;margin-right:12px}.punch{font-size:16.5px}.btn{width:calc(100% - 24px);margin-left:12px;margin-right:12px}}
+@media(max-width:520px){
+  .shell{width:100%;padding:10px 9px 0}
+  .card{border-radius:26px 26px 0 0}
+  .hero{height:76vh;min-height:600px;max-height:760px;border-radius:26px 26px 0 0}
+  .fact-card{top:38px;right:18px;width:46%;padding:23px 18px 22px;border-radius:23px}
+  .lead{font-size:27px;margin-bottom:19px;gap:6px}
+  .bulb{font-size:28px}
+  .fact{font-size:17px;line-height:1.45}
+  .lower{margin:-54px 18px 0;padding:16px 13px 8px;border-radius:26px 26px 0 0}
+  .punch{font-size:17.5px;line-height:1.48;padding:19px 16px}
+  .ending{font-size:16px}
+  .btn{width:calc(100% - 36px);margin:14px 18px 20px;font-size:19px;padding:16px;border-radius:21px}
+  .brand{margin:0 -9px;padding:28px 14px calc(31px + env(safe-area-inset-bottom));border-radius:50% 50% 0 0 / 8% 8% 0 0}
+  .brand-name{font-size:35px}
+}
+@media(max-width:380px){
+  .hero{min-height:560px}
+  .fact-card{right:14px;top:30px;width:48%;padding:20px 15px}
+  .lead{font-size:24px}
+  .bulb{font-size:25px}
+  .fact{font-size:15.8px}
+  .lower{margin-left:12px;margin-right:12px}
+  .punch{font-size:16.5px}
+  .btn{width:calc(100% - 24px);margin-left:12px;margin-right:12px}
+}
 </style>
 </head>
 <body>
