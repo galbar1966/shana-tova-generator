@@ -1,0 +1,62 @@
+name: Add greeting image placeholders
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-image-placeholders.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reserve image slots for all greetings
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+
+          # Add responsive visual slot styles once.
+          if '.visual{' not in s:
+              needle='.lead{position:relative;display:inline-block;'
+              css='.visual{position:relative;width:100%;aspect-ratio:4/3;margin:0 0 22px;border-radius:21px;overflow:hidden;background:linear-gradient(135deg,rgba(124,58,237,.10),rgba(196,181,253,.22));border:1px solid rgba(124,58,237,.12)}.visual img{width:100%;height:100%;display:block;object-fit:cover;opacity:0;transition:opacity .22s ease}.visual.loaded img{opacity:1}.visual-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#6d28d9;text-align:center;font-weight:800;padding:20px}.visual-placeholder .paw{font-size:34px;line-height:1}.visual-placeholder .animal-title{font-size:17px;line-height:1.35}.visual.loaded .visual-placeholder{display:none}'
+              s=s.replace(needle,css+needle)
+
+          # Add visual slot before the heading.
+          old='<section class="card" id="card"><div class="lead">💡 הידעת ש...</div>'
+          new='<section class="card" id="card"><div class="visual" id="visual"><img id="animalImage" alt=""><div class="visual-placeholder" id="visualPlaceholder"><div class="paw">🐾</div><div class="animal-title" id="visualTitle"></div></div></div><div class="lead">💡 הידעת ש...</div>'
+          if 'id="animalImage"' not in s:
+              s=s.replace(old,new)
+
+          # Reserve one deterministic asset path per greeting.
+          if 'const IMAGE_BY_ID=' not in s:
+              marker='const MASTER=['
+              mapping='const IMAGE_BY_ID=Object.fromEntries(Array.from({length:61},(_,i)=>[i+1,`assets/animals/${String(i+1).padStart(3,"0")}.webp`]));\n'
+              s=s.replace(marker,mapping+marker)
+
+          # Wire the current greeting to its image slot and graceful placeholder.
+          if 'const visual=document.getElementById("visual")' not in s:
+              marker='const punch=document.getElementById("punch");'
+              inject='const punch=document.getElementById("punch");const visual=document.getElementById("visual"),animalImage=document.getElementById("animalImage"),visualTitle=document.getElementById("visualTitle");'
+              s=s.replace(marker,inject)
+
+          render_marker='punch.textContent="<"+item.punch.replace(/\\n{2,}/g,"\\n")+">";'
+          if 'animalImage.src=IMAGE_BY_ID[item.id]' not in s:
+              render_inject=render_marker+'visual.classList.remove("loaded");visualTitle.textContent=item.title;animalImage.alt=item.title;animalImage.onload=()=>visual.classList.add("loaded");animalImage.onerror=()=>visual.classList.remove("loaded");animalImage.src=IMAGE_BY_ID[item.id];'
+              s=s.replace(render_marker,render_inject)
+
+          p.write_text(s,encoding='utf-8')
+      - name: Commit placeholder system
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Reserve 61 greeting image slots"
+          git pull --rebase origin main
+          git push origin main
