@@ -12,19 +12,33 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Normalize punctuation and comic line breaks
+      - name: Apply copy-only fixes safely
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          s=re.sub(r'[ \t]+([,.;:!?])', r'\1', s)
-          s=s.replace(' ,', ',').replace(' .', '.').replace(' !', '!').replace(' ?', '?').replace(' :', ':').replace(' ;', ';')
+
+          # Repair CSS accidentally touched by the earlier broad punctuation cleanup.
+          s=s.replace('transition:transform.12s ease,box-shadow.12s ease','transition:transform .12s ease,box-shadow .12s ease')
+
+          # Restrict punctuation cleanup to the greeting data only.
+          a=s.index('const MASTER=[')
+          b=s.index('];',a)+2
+          prefix, master, suffix=s[:a],s[a:b],s[b:]
+          master=re.sub(r'[ \t]+([,.;:!?])', r'\1', master)
+          master=master.replace('\\n\\n','\\n')
+          s=prefix+master+suffix
+
+          # Keep the approved wood-frog pacing exactly.
           old='כלומר, היא יכולה להיות קפואה, לא לזוז ולא להגיב לאף אחד במשך תקופה,\\nואז פתאום לחזור לתפקד כאילו כלום לא קרה.\\nבקיצור, כל מי שאי פעם קיבל ממך הודעה ולא ענה שלושה שבועות מצא עכשיו תירוץ מדעי 😈'
           new='כלומר,\\nהיא יכולה להיות קפואה, לא לזוז ולא להגיב לאף אחד במשך תקופה,\\nואז, פתאום, לחזור לתפקד כאילו כלום לא קרה.\\nבקיצור,\\nכל מי שאי פעם קיבל ממך הודעה ולא ענה שלושה שבועות - מצא עכשיו תירוץ מדעי 😈'
           s=s.replace(old,new)
-          s=s.replace('\\n\\n','\\n')
+
+          # Render the punchline with literal angle brackets.
+          s=s.replace('punch.textContent=item.punch.replace(/\\n{2,}/g,"\\n");', 'punch.textContent="<"+item.punch.replace(/\\n{2,}/g,"\\n")+">";')
+
           p.write_text(s,encoding='utf-8')
           PY
       - name: Commit cleanup
@@ -33,6 +47,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Clean punctuation and punchline layout"
+          git commit -m "Finalize greeting copy cleanup"
           git pull --rebase origin main
           git push origin main
