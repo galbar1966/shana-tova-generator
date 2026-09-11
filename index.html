@@ -113,9 +113,23 @@ else{
   fitBox(fact,Math.min(31,w*0.030),10.5);
   fitBox(punch,Math.min(30,w*0.029),9.5);
  }
- function draw(){let available=pool.filter(x=>!seen.includes(x.id));if(!available.length){seen=[];available=pool.slice();}const item=available[Math.floor(Math.random()*available.length)];seen.push(item.id);save();fact.textContent=item.fact;punch.textContent=item.punch.replace(/
+ function draw(){
+  let available=pool.filter(x=>!seen.includes(x.id));
+  if(!available.length){seen=[];available=pool.slice();}
+  const item=available[Math.floor(Math.random()*available.length)];
+  seen.push(item.id);save();
+  fact.textContent=item.fact;
+  punch.textContent=item.punch.replace(/[<>]/g,"").replace(/
 {2,}/g,"
-");requestAnimationFrame(fitCurrent);animalImage.alt=item.title;animalImage.style.display="block";animalImage.onload=null;animalImage.onerror=()=>{animalImage.style.display="none";};animalImage.src=IMAGE_BY_ID[item.id];card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");}
+");
+  requestAnimationFrame(fitCurrent);
+  animalImage.alt=item.title;
+  animalImage.style.display="block";
+  animalImage.onload=null;
+  animalImage.onerror=()=>{animalImage.style.display="none";};
+  animalImage.src=IMAGE_BY_ID[item.id];
+  card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");
+}
  next.addEventListener('click',draw);window.addEventListener('resize',()=>requestAnimationFrame(fitCurrent));draw();
 }
 </script></body></html>
