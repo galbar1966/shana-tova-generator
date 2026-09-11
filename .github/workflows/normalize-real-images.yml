@@ -17,6 +17,31 @@ jobs:
       - uses: actions/checkout@v4
       - name: Apply fixed reference geometry
         run: python .github/scripts/apply_reference.py
+      - name: Repair runtime JS
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          draw = r'''function draw(){
+            let available=pool.filter(x=>!seen.includes(x.id));
+            if(!available.length){seen=[];available=pool.slice();}
+            const item=available[Math.floor(Math.random()*available.length)];
+            seen.push(item.id);save();
+            fact.textContent=item.fact;
+            punch.textContent=item.punch.replace(/[<>]/g,"").replace(/\n{2,}/g,"\n");
+            requestAnimationFrame(fitCurrent);
+            animalImage.alt=item.title;
+            animalImage.style.display="block";
+            animalImage.onload=null;
+            animalImage.onerror=()=>{animalImage.style.display="none";};
+            animalImage.src=IMAGE_BY_ID[item.id];
+            card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");
+          }'''
+          s = re.sub(r'function draw\(\)\{.*?\}\s*next\.addEventListener', draw + "\n next.addEventListener", s, count=1, flags=re.S)
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Commit layout
         run: |
           git config user.name "github-actions[bot]"
@@ -25,6 +50,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Apply fixed 2:3 approved reference geometry"
+            git commit -m "Repair generated runtime and restore greeting rendering"
             git push
           fi
