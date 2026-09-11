@@ -16,8 +16,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Apply approved reference composition
-        shell: python
+        shell: bash
         run: |
+          python - <<'PY'
           from pathlib import Path
           import re
 
@@ -74,15 +75,20 @@ body{background:#f4f3f8;color:#1d2340;overflow-x:hidden}
 </style>'''
 
           s = re.sub(r'<style>.*?</style>', css, s, count=1, flags=re.S)
-          s = s.replace(
-            '      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n    </div>\n    <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>',
-            '      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n      <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>\n    </div>'
-          )
+          old = '''      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>
+    </div>
+    <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>'''
+          new = '''      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>
+      <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>
+    </div>'''
+          s = s.replace(old, new)
           s = s.replace('.webp`]', '.png`]')
           s = s.replace('.webp`));', '.png`));')
           p.write_text(s, encoding='utf-8')
+          PY
 
       - name: Commit layout
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
