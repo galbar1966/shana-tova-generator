@@ -12,10 +12,10 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .card{position:relative;background:#fff;overflow:hidden}
 .hero{position:relative;width:100%;aspect-ratio:2/3;background:#eceaf2;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:contain;object-position:center top;background:#eceaf2}
-.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:43.4%;height:min(36vw,368px);background:rgba(255,255,255,.96);border-radius:min(3vw,30px);padding:min(2.6vw,27px) min(2.7vw,28px);box-shadow:0 14px 36px rgba(34,28,77,.13);overflow:hidden}
-.lead{display:flex;direction:rtl;flex-direction:row;align-items:center;justify-content:flex-start;gap:min(1vw,10px);color:#6727d4;font-family:Arial,sans-serif;font-size:clamp(26px,4.7vw,48px);font-weight:700;line-height:1;margin:0 0 min(2.2vw,23px);text-align:right;white-space:nowrap;letter-spacing:0}
+.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:43.4%;height:auto;max-height:46%;background:rgba(255,255,255,.96);border-radius:min(3vw,30px);padding:min(2.4vw,25px) min(2.7vw,28px) min(2.6vw,27px);box-shadow:0 14px 36px rgba(34,28,77,.13);overflow:hidden}
+.lead{display:flex;direction:rtl;flex-direction:row;align-items:center;justify-content:flex-start;gap:min(1vw,10px);color:#6727d4;font-family:Arial,sans-serif;font-size:clamp(26px,4.7vw,48px);font-weight:700;line-height:1;margin:0 0 min(1.8vw,18px);text-align:right;white-space:nowrap;letter-spacing:0}
 .bulb{font-size:.95em;line-height:1;flex:none}
-.fact{font-family:Arial,sans-serif;font-size:clamp(15px,2.8vw,29px);line-height:1.34;font-weight:700;white-space:pre-line;color:#222943;text-align:right;height:calc(100% - min(7.2vw,74px));overflow:hidden}
+.fact{font-family:Arial,sans-serif;font-size:clamp(15px,2.8vw,29px);line-height:1.34;font-weight:700;white-space:pre-line;color:#222943;text-align:right;overflow:hidden}
 .lower{position:relative;z-index:8;width:87%;height:min(47.5vw,486px);margin:-75% auto min(2.5vw,26px);background:#fff;border-radius:min(3.4vw,35px);padding:min(1vw,10px) min(1.5vw,15px);box-shadow:0 12px 38px rgba(31,28,75,.14)}
 .punch{position:absolute;top:min(.9vw,9px);left:min(1.5vw,15px);right:min(1.5vw,15px);height:min(16.2vw,166px);font-family:Arial,sans-serif;font-size:clamp(14px,2.7vw,28px);line-height:1.28;font-weight:700;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#faf7ff 0%,#f0e7fb 100%);border:0;border-radius:min(2.5vw,26px);padding:min(2vw,20px) min(2.5vw,26px);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .divider{position:absolute;top:min(19.1vw,196px);left:9%;right:9%;display:flex;align-items:center;gap:min(1.8vw,18px);margin:0;color:#9498ad}
@@ -32,9 +32,9 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55}
 @media(max-width:680px){
  body{background:#fff}.shell{width:100%;box-shadow:none}
- .fact-card{top:6%;right:4.4%;width:43.4%;height:36vw;padding:2.6vw 2.7vw;border-radius:3vw}
- .lead{font-size:4.7vw;margin-bottom:2.2vw;gap:1vw;letter-spacing:0}
- .fact{font-size:2.8vw;line-height:1.34;height:calc(100% - 7.2vw)}
+ .fact-card{top:6%;right:4.4%;width:43.4%;height:auto;max-height:46%;padding:2.4vw 2.7vw 2.6vw;border-radius:3vw}
+ .lead{font-size:4.7vw;margin-bottom:1.8vw;gap:1vw;letter-spacing:0}
+ .fact{font-size:2.8vw;line-height:1.34}
  .lower{width:87%;height:47.5vw;margin-top:-75%;margin-bottom:2.5vw;border-radius:3.4vw}
  .punch{font-size:2.7vw;line-height:1.28}
  .ending{font-size:2.15vw;line-height:1.34}
