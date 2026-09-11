@@ -1,0 +1,143 @@
+name: Normalize real animal images
+
+on:
+  push:
+    paths:
+      - '.github/workflows/normalize-real-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Map uploaded images to canonical IDs
+        shell: python
+        run: |
+          from pathlib import Path
+          import shutil, re
+
+          root = Path('.')
+          dst = root / 'assets' / 'animals'
+          dst.mkdir(parents=True, exist_ok=True)
+
+          mapping = {
+            1: 'סוסון%20ים(1).PNG',
+            2: 'אקסולוטל(3).PNG',
+            3: 'צפרדע%20קפואה(1).PNG',
+            4: 'פלמינגו(3).PNG',
+            5: 'עורב(1).PNG',
+            6: 'עז(2).PNG',
+            7: 'דרקון%20קומודו(1).PNG',
+            8: 'דולפינה(1).PNG',
+            9: 'תולעניים(1).PNG',
+            10: 'אריה%20ים(1).PNG',
+            11: 'ChatGPT Image Sep 10, 2026, 02_30_24 PM (1).png',
+            12: 'ChatGPT Image Sep 10, 2026, 02_30_25 PM (2).png',
+            13: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_25 PM (3).png',
+            14: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_26 PM (4).png',
+            15: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_26 PM (5).png',
+            16: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_26 PM (6).png',
+            17: 'assets/animals/ChatGPT Image Sep 10, 2026, 04_18_58 PM.png',
+            18: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_27 PM (8).png',
+            19: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_28 PM (9).png',
+            20: 'assets/animals/ChatGPT Image Sep 10, 2026, 02_30_29 PM (10).png',
+          }
+
+          # 21-30: corrected batch order, queen bee through macaque.
+          batch_21_30 = [
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_31 PM (1).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_32 PM (2).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_32 PM (3).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_33 PM (4).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_34 PM (5).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_34 PM (6).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_35 PM (7).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_35 PM (8).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_36 PM (9).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 02_53_37 PM (10).png',
+          ]
+          for i, src in enumerate(batch_21_30, 21):
+              mapping[i] = src
+
+          batch_31_40 = [
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_51 PM (1).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_52 PM (2).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_52 PM (3).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_53 PM (4).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_53 PM (5).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_54 PM (6).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_54 PM (7).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_55 PM (8).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_55 PM (9).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_02_55 PM (10).png',
+          ]
+          for i, src in enumerate(batch_31_40, 31):
+              mapping[i] = src
+
+          batch_41_50 = [
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_50 PM (1).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_51 PM (2).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_51 PM (3).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_51 PM (4).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_52 PM (5).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_52 PM (6).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_52 PM (7).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_53 PM (8).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_53 PM (9).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_20_54 PM (10).png',
+          ]
+          for i, src in enumerate(batch_41_50, 41):
+              mapping[i] = src
+
+          batch_51_60 = [
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_21 PM (1).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_22 PM (2).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_23 PM (3).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_23 PM (4).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_24 PM (5).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_25 PM (6).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_25 PM (7).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_26 PM (8).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_26 PM (9).png',
+            'assets/animals/ChatGPT Image Sep 10, 2026, 03_27_27 PM (10).png',
+          ]
+          for i, src in enumerate(batch_51_60, 51):
+              mapping[i] = src
+
+          mapping[61] = 'assets/animals/ChatGPT Image Sep 10, 2026, 04_14_53 PM.png'
+
+          missing = [f'{i:03d}: {src}' for i, src in mapping.items() if not (root / src).is_file()]
+          if missing:
+              raise SystemExit('Missing source files:\n' + '\n'.join(missing))
+          if set(mapping) != set(range(1, 62)):
+              raise SystemExit('Mapping does not contain exactly IDs 1..61')
+
+          for i in range(1, 62):
+              shutil.copyfile(root / mapping[i], dst / f'{i:03d}.png')
+
+          index = root / 'index.html'
+          text = index.read_text(encoding='utf-8')
+          text = re.sub(r'assets/animals/(\d{3})\.webp', r'assets/animals/\1.png', text)
+          index.write_text(text, encoding='utf-8')
+
+          created = sorted(dst.glob('[0-9][0-9][0-9].png'))
+          if len(created) != 61:
+              raise SystemExit(f'Expected 61 canonical PNGs, found {len(created)}')
+          print('Canonical images created:', len(created))
+
+      - name: Commit canonical image mapping
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/animals/0*.png index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Map all 61 real animal images to canonical IDs"
+            git push
+          fi
