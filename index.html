@@ -31,11 +31,34 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 .brand-joke{font-family:'Rubik',Arial,sans-serif;font-size:min(1.6vw,16.5px);line-height:1.4;margin-top:.7%;color:#d8d4e3}
 .brand-joke em{font-style:normal;font-weight:inherit;color:inherit}
 .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55}
+
 @media(max-width:680px){
- body{background:#fff}.shell{width:100%;box-shadow:none}
- .lead{font-size:4.9vw}.fact{font-size:3vw}
- .punch{font-size:2.9vw}.ending{font-size:2.35vw}.btn{font-size:2.9vw}
- .brand-name{font-size:5.9vw}.brand-line{font-size:2.05vw}.brand-joke{font-size:1.6vw}
+ body{background:#fff}
+ .shell{width:100%;max-width:none;min-height:100vh;box-shadow:none;overflow:hidden}
+ .card{aspect-ratio:auto;overflow:visible;min-height:100vh;padding-bottom:0}
+ .hero{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/3}
+ .hero img{width:100%;height:100%;object-fit:cover;object-position:44% 48%}
+ .fact-card{top:5.2vw;right:4vw;width:44%;max-height:43vw;border-radius:5.2vw;padding:4.5vw 4vw 4.8vw}
+ .lead{font-size:clamp(24px,7.2vw,34px);gap:1.6vw;margin-bottom:3.8vw;font-weight:700}
+ .fact{font-size:clamp(15px,4.25vw,20px);line-height:1.38}
+ .lower{position:relative;left:auto;top:auto;width:88%;height:auto;min-height:48vw;margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible}
+ .punch{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:26vw;padding:5vw 4vw;font-size:clamp(16px,4.45vw,21px);line-height:1.4;border-radius:5vw;overflow:visible}
+ .divider{position:relative;left:auto;right:auto;top:auto;margin:5vw 8% 3.5vw;gap:3vw}
+ .divider span{font-size:6vw}
+ .ending{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:0;padding:0 4vw;font-size:clamp(14px,3.9vw,18px);line-height:1.45;overflow:visible}
+ .btn{position:relative;left:auto;bottom:auto;transform:none;width:72%;height:auto;min-height:15vw;margin:5vw auto 0;padding:3.2vw 5vw;font-size:clamp(18px,5vw,23px);line-height:1.05}
+ .brand{position:relative;left:auto;bottom:auto;width:100%;height:auto;min-height:34vw;margin-top:0;padding:9vw 4vw calc(8vw + env(safe-area-inset-bottom));border-radius:50% 50% 0 0 / 7% 7% 0 0;overflow:visible}
+ .brand-name{font-size:clamp(38px,11vw,52px);margin-bottom:2vw}
+ .brand-line{font-size:clamp(13px,3.7vw,17px)}
+ .brand-joke{font-size:clamp(11px,3vw,14px);margin-top:1.5vw}
+}
+
+@media(max-width:380px){
+ .fact-card{width:46%;right:3.2vw;padding-left:3.2vw;padding-right:3.2vw}
+ .lead{font-size:6.8vw}
+ .fact{font-size:4vw}
+ .lower{width:90%;margin-top:-52vw}
+ .btn{width:78%}
 }
 </style>
 </head>
@@ -75,11 +98,18 @@ else{
 
  function fitBox(el,maxPx,minPx){
   if(!el)return;
+  el.style.fontSize='';
   let px=maxPx; el.style.fontSize=px+"px";
   while((el.scrollHeight>el.clientHeight+1 || el.scrollWidth>el.clientWidth+1) && px>minPx){px-=0.5;el.style.fontSize=px+"px";}
  }
  function fitCurrent(){
-  const w=Math.min(document.querySelector('.shell')?.clientWidth || window.innerWidth || 1024,1024);
+  const shell=document.querySelector('.shell');
+  const w=Math.min(shell?.clientWidth || window.innerWidth || 1024,1024);
+  if(w<=680){
+    fact.style.fontSize='';
+    punch.style.fontSize='';
+    return;
+  }
   fitBox(fact,Math.min(31,w*0.030),10.5);
   fitBox(punch,Math.min(30,w*0.029),9.5);
  }
