@@ -1,0 +1,34 @@
+from pathlib import Path
+import re
+
+p = Path('index.html')
+s = p.read_text(encoding='utf-8')
+
+block = """<title>שנה טובה, הידעת? 💡😈</title>
+<meta name="description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="שנה טובה, הידעת?">
+<meta property="og:title" content="שנה טובה, הידעת? 💡😈">
+<meta property="og:description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
+<meta property="og:url" content="https://galbar1966.github.io/shana-tova-generator/">
+<meta property="og:image" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">
+<meta property="og:image:secure_url" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="קואלה עייפה ומשועשעת על עץ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="שנה טובה, הידעת? 💡😈">
+<meta name="twitter:description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
+<meta name="twitter:image" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">"""
+
+s = re.sub(r'<title>.*?</title>\s*', '', s, count=1, flags=re.S)
+s = re.sub(r'<meta\s+(?:name|property)="(?:description|og:[^"]+|twitter:[^"]+)"[^>]*>\s*', '', s, flags=re.I)
+
+marker = '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+if marker not in s:
+    raise SystemExit('viewport marker not found')
+
+s = s.replace(marker, marker + '\n' + block, 1)
+p.write_text(s, encoding='utf-8')
