@@ -13,8 +13,8 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .hero{position:relative;width:100%;aspect-ratio:1.14/1;background:#e9e7ef;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 44%}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 78%,rgba(255,255,255,.08) 100%);pointer-events:none}
-.fact-card{position:absolute;z-index:5;top:5.9%;right:4.4%;width:43.5%;background:rgba(255,255,255,.97);border-radius:30px;padding:34px 32px 37px;box-shadow:0 16px 42px rgba(34,28,77,.16)}
-.lead{display:flex;direction:rtl;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:11px;color:#6828d8;font-size:clamp(38px,4.7vw,50px);font-weight:900;line-height:1;margin:0 0 28px;white-space:nowrap;letter-spacing:-.9px}
+.fact-card{position:absolute;z-index:5;top:5.2%;right:4.2%;width:41.5%;background:rgba(255,255,255,.84);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.72);border-radius:30px;padding:32px 30px 35px;box-shadow:0 14px 34px rgba(34,28,77,.14)}
+.lead{display:flex;direction:rtl;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:11px;color:#6828d8;font-size:clamp(38px,4.7vw,50px);font-weight:900;line-height:1;margin:0 0 26px;white-space:nowrap;letter-spacing:-.9px}
 .bulb{font-size:1em;line-height:1;flex:none}
 .fact{font-size:clamp(24px,2.8vw,32px);line-height:1.42;font-weight:700;white-space:pre-line;color:#222943;text-align:right}
 .lower{position:relative;z-index:8;width:87%;margin:-12.6% auto 28px;background:#fff;border-radius:34px;padding:12px 18px 24px;box-shadow:0 12px 38px rgba(31,28,75,.14)}
@@ -34,9 +34,9 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 @media(max-width:680px){
  body{background:#fff}.shell{width:100%;box-shadow:none}
  .hero{aspect-ratio:1.14/1}.hero img{object-position:center 44%}
- .fact-card{top:5%;right:4%;width:46%;padding:20px 17px 22px;border-radius:21px}
- .lead{font-size:clamp(26px,6.2vw,34px);margin-bottom:17px;gap:6px}
- .fact{font-size:clamp(16px,4.05vw,21px);line-height:1.4}
+ .fact-card{top:4.5%;right:3.5%;width:43%;padding:19px 16px 21px;border-radius:21px;background:rgba(255,255,255,.80)}
+ .lead{font-size:clamp(25px,6vw,33px);margin-bottom:16px;gap:6px}
+ .fact{font-size:clamp(15px,3.9vw,20px);line-height:1.38}
  .lower{width:88%;margin-top:-12%;margin-bottom:20px;padding:10px 12px 18px;border-radius:28px}
  .punch{font-size:clamp(16px,4vw,20px);line-height:1.46;padding:20px 17px;border-radius:20px}
  .divider{margin:20px 8% 14px}.divider span{font-size:23px}
