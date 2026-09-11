@@ -17,6 +17,47 @@ jobs:
       - uses: actions/checkout@v4
       - name: Apply fixed reference geometry
         run: python .github/scripts/apply_reference.py
+
+      - name: Polish lower card and branding
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace(
+            "family=Rubik:wght@400;500;600;700;800;900&display=swap",
+            "family=Fredoka:wght@600;700&family=Rubik:wght@400;500;600;700;800;900&display=swap"
+          )
+
+          s = s.replace(
+            "border-radius:3.2% 3.2% 2.6% 2.6%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden",
+            "border-radius:3.2% 3.2% 6.4% 6.4%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden"
+          )
+
+          s = s.replace(
+            "margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible",
+            "margin:-54vw auto 3vw;padding:3vw 2.8vw 5vw;border-radius:6.8vw 6.8vw 10vw 10vw;overflow:visible"
+          )
+
+          s = s.replace(
+            ".brand-name{direction:ltr;color:#9847ee;font-family:'Arial Black','Rubik',Arial,sans-serif;font-size:min(5.9vw,60px);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:1.1%}",
+            ".brand-name{direction:ltr;color:#9847ee;font-family:'Fredoka','Rubik',Arial,sans-serif;font-size:min(5.9vw,60px);font-weight:700;letter-spacing:-2.4px;line-height:.95;margin-bottom:1.1%}"
+          )
+
+          s = s.replace(
+            ".brand-name{font-size:clamp(38px,11vw,52px);margin-bottom:2vw;letter-spacing:-1.5px}",
+            ".brand-name{font-family:'Fredoka','Rubik',Arial,sans-serif;font-size:clamp(38px,11vw,52px);font-weight:700;margin-bottom:2vw;letter-spacing:-2px}"
+          )
+
+          s = s.replace(
+            "תשעה חודשים פנימה היא מסתכלת",
+            "תשעה חודשים מאוחר יותר היא מסתכלת"
+          )
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
       - name: Repair fact card alignment and translucency
         run: |
           python - <<'PY'
@@ -29,6 +70,7 @@ jobs:
           s = s.replace("background:linear-gradient(270deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.11) 68%,rgba(255,255,255,.015) 100%);box-shadow:none", "background:rgba(255,255,255,.54);backdrop-filter:blur(1.25px);-webkit-backdrop-filter:blur(1.25px);box-shadow:none")
           p.write_text(s, encoding='utf-8')
           PY
+
       - name: Repair runtime JS
         run: |
           python - <<'PY'
@@ -55,6 +97,7 @@ jobs:
           s = re.sub(pattern, lambda m: draw + "\n next.addEventListener", s, count=1, flags=re.S)
           p.write_text(s, encoding='utf-8')
           PY
+
       - name: Commit layout
         run: |
           git config user.name "github-actions[bot]"
@@ -63,6 +106,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Fix fact heading alignment and card translucency"
+            git commit -m "Polish lower card branding and copy"
             git push
           fi
