@@ -24,6 +24,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Apply approved reference layout"
+            git commit -m "Keep fact card from masking animal faces"
             git push
           fi
