@@ -119,9 +119,7 @@ else{
   const item=available[Math.floor(Math.random()*available.length)];
   seen.push(item.id);save();
   fact.textContent=item.fact;
-  punch.textContent=item.punch.replace(/[<>]/g,"").replace(/
-{2,}/g,"
-");
+  punch.textContent=item.punch.replace(/[<>]/g,"").replace(/\n{2,}/g,"\n");
   requestAnimationFrame(fitCurrent);
   animalImage.alt=item.title;
   animalImage.style.display="block";
