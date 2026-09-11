@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply reference layout
+      - name: Apply fixed reference geometry
         run: python .github/scripts/apply_reference.py
       - name: Commit layout
         run: |
@@ -25,6 +25,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Rebuild to exact approved visual reference"
+            git commit -m "Apply fixed 2:3 approved reference geometry"
             git push
           fi
