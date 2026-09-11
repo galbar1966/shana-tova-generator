@@ -13,10 +13,10 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 .card{position:relative;width:100%;aspect-ratio:2/3;background:#fff;overflow:hidden}
 .hero{position:absolute;inset:0 auto auto 0;width:100%;height:58.6%;background:#e9e7ef;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:44% 48%}
-.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:46%;max-height:29%;background:linear-gradient(270deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.22) 68%,rgba(255,255,255,.06) 100%);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:3%;padding:3.0% 3.0% 3.2%;box-shadow:none;overflow:hidden;direction:rtl;text-align:right}
+.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:46%;max-height:29%;background:linear-gradient(270deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.14) 70%,rgba(255,255,255,.02) 100%);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:3%;padding:3.0% 3.0% 3.2%;box-shadow:none;overflow:hidden;direction:rtl;text-align:right}
 .lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:2.2%;margin:0 0 4.5%;color:#6b27d8;font-family:'Rubik',Arial,sans-serif;font-size:min(4.6vw,47px);font-weight:800;line-height:1;text-align:right;white-space:nowrap;letter-spacing:0}
 .bulb{font-size:1em;line-height:1;flex:none}
-.fact{direction:rtl;unicode-bidi:plaintext;font-family:'Rubik',Arial,sans-serif;font-size:min(2.8vw,29px);line-height:1.38;font-weight:500;white-space:normal;color:#222943;text-align:right;overflow:hidden;overflow-wrap:normal;word-break:normal;hyphens:none}
+.fact{direction:rtl;font-family:'Rubik',Arial,sans-serif;font-size:min(2.8vw,29px);line-height:1.38;font-weight:500;white-space:normal;color:#222943;text-align:right;overflow:hidden;overflow-wrap:break-word;word-break:normal;hyphens:none}
 .lower{position:absolute;z-index:8;left:6.4%;top:50.1%;width:87.2%;height:31.8%;margin:0;background:#fff;border-radius:3.2% 3.2% 2.6% 2.6%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden}
 .punch{position:absolute;left:1.7%;right:1.7%;top:2.2%;height:32.5%;display:flex;align-items:center;justify-content:center;padding:2.3% 4%;font-family:'Rubik',Arial,sans-serif;font-size:min(2.9vw,30px);line-height:1.35;font-weight:600;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#faf7ff 0%,#efe6fb 100%);border-radius:2.7%;overflow:hidden}
 .divider{position:absolute;left:9%;right:9%;top:39.8%;display:flex;align-items:center;gap:2%;margin:0;color:#9498ad}
@@ -38,9 +38,9 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
  .card{aspect-ratio:auto;overflow:visible;min-height:100vh;padding-bottom:0}
  .hero{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/3}
  .hero img{width:100%;height:100%;object-fit:cover;object-position:44% 48%}
- .fact-card{top:5.2vw;right:3.5vw;width:49%;max-height:44vw;border-radius:5.2vw;padding:4.2vw 3.8vw 4.3vw;background:linear-gradient(270deg,rgba(255,255,255,.30) 0%,rgba(255,255,255,.18) 66%,rgba(255,255,255,.03) 100%);box-shadow:none}
- .lead{font-size:clamp(23px,6.9vw,33px);gap:1.6vw;margin-bottom:3vw;font-weight:700}
- .fact{font-size:clamp(14px,4vw,19px);line-height:1.34;white-space:normal}
+ .fact-card{top:5.2vw;right:3.2vw;width:51%;max-height:48vw;border-radius:5.2vw;padding:4vw 3.4vw 4.1vw;background:linear-gradient(270deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.11) 68%,rgba(255,255,255,.015) 100%);box-shadow:none}
+ .lead{font-size:clamp(22px,6.5vw,31px);gap:1.5vw;margin-bottom:2.6vw;font-weight:700}
+ .fact{font-size:clamp(13px,3.8vw,18px);line-height:1.34;white-space:normal;overflow-wrap:break-word;word-break:normal}
  .lower{position:relative;left:auto;top:auto;width:88%;height:auto;min-height:48vw;margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible}
  .punch{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:26vw;padding:5vw 4vw;font-size:clamp(16px,4.45vw,21px);line-height:1.4;border-radius:5vw;overflow:visible}
  .divider{position:relative;left:auto;right:auto;top:auto;margin:5vw 8% 3.5vw;gap:3vw}
@@ -54,9 +54,9 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 }
 
 @media(max-width:380px){
- .fact-card{width:50%;right:2.5vw;padding-left:3vw;padding-right:3vw}
- .lead{font-size:6.5vw}
- .fact{font-size:3.8vw}
+ .fact-card{width:52%;right:2.2vw;padding-left:2.8vw;padding-right:2.8vw}
+ .lead{font-size:6.2vw}
+ .fact{font-size:3.65vw}
  .lower{width:90%;margin-top:-52vw}
  .btn{width:78%}
 }
@@ -66,7 +66,7 @@ s = re.sub(r'<style>.*?</style>', css, s, count=1, flags=re.S)
 s = re.sub(r'\s*<div class="dots">\.<br>\.<br>\.</div>', '', s, count=1)
 s = s.replace('<div class="lead"><span>הידעת ש...</span><span class="bulb">💡</span></div>', '<div class="lead"><span class="bulb">💡</span><span>הידעת ש...</span></div>')
 
-helper = '''\n function fitBox(el,maxPx,minPx){\n  if(!el)return;\n  el.style.fontSize='';\n  let px=maxPx; el.style.fontSize=px+"px";\n  while((el.scrollHeight>el.clientHeight+1 || el.scrollWidth>el.clientWidth+1) && px>minPx){px-=0.5;el.style.fontSize=px+"px";}\n }\n function fitCurrent(){\n  const shell=document.querySelector('.shell');\n  const w=Math.min(shell?.clientWidth || window.innerWidth || 1024,1024);\n  if(w<=680){\n    fact.style.fontSize='';\n    punch.style.fontSize='';\n    return;\n  }\n  fitBox(fact,Math.min(29,w*0.028),10.5);\n  fitBox(punch,Math.min(30,w*0.029),9.5);\n }\n'''
+helper = '''\n function fitBox(el,maxPx,minPx){\n  if(!el)return;\n  el.style.fontSize='';\n  let px=maxPx; el.style.fontSize=px+"px";\n  while((el.scrollHeight>el.clientHeight+1 || el.scrollWidth>el.clientWidth+1) && px>minPx){px-=0.5;el.style.fontSize=px+"px";}\n }\n function fitCurrent(){\n  const shell=document.querySelector('.shell');\n  const w=Math.min(shell?.clientWidth || window.innerWidth || 1024,1024);\n  if(w<=680){\n    const card=document.querySelector('.fact-card');\n    if(card){\n      const leadEl=card.querySelector('.lead');\n      const cs=getComputedStyle(card);\n      const available=Math.max(30, card.clientHeight - (leadEl?.offsetHeight||0) - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 8);\n      fact.style.maxHeight=available+'px';\n      fitBox(fact,Math.min(18,w*0.038),11.5);\n    }\n    punch.style.fontSize='';\n    return;\n  }\n  fact.style.maxHeight='';\n  fitBox(fact,Math.min(29,w*0.028),10.5);\n  fitBox(punch,Math.min(30,w*0.029),9.5);\n }\n'''
 if 'function fitBox(' in s:
     s = re.sub(r'\n function fitBox\(.*?\n function fitCurrent\(\)\{.*?\n \}\n', helper, s, count=1, flags=re.S)
 else:
