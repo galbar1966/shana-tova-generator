@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/normalize-real-images.yml'
+      - '.github/scripts/apply_reference.py'
   workflow_dispatch:
 
 permissions:
@@ -24,6 +25,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Keep fact card from masking animal faces"
+            git commit -m "Rebuild to exact approved visual reference"
             git push
           fi
