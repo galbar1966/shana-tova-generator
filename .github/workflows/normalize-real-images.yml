@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/normalize-real-images.yml'
       - '.github/scripts/add_social_preview.py'
+      - '.github/scripts/rebalance_text_hierarchy.py'
   workflow_dispatch:
 
 permissions:
@@ -17,7 +18,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Add social preview metadata
         run: python .github/scripts/add_social_preview.py
-      - name: Commit social preview
+      - name: Rebalance fact and punch hierarchy
+        run: python .github/scripts/rebalance_text_hierarchy.py
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -25,6 +28,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Add WhatsApp social preview"
+            git commit -m "Rebalance fact and punch hierarchy"
             git push
           fi
