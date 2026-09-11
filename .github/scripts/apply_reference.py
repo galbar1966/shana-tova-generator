@@ -13,7 +13,7 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 .card{position:relative;width:100%;aspect-ratio:2/3;background:#fff;overflow:hidden}
 .hero{position:absolute;inset:0 auto auto 0;width:100%;height:58.6%;background:#e9e7ef;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:44% 48%}
-.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:43.5%;max-height:29%;background:rgba(255,255,255,.94);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);border-radius:3%;padding:3.2% 3.1% 3.4%;box-shadow:0 14px 36px rgba(34,28,77,.14);overflow:hidden}
+.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:43.5%;max-height:29%;background:rgba(255,255,255,.76);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-radius:3%;padding:3.2% 3.1% 3.4%;box-shadow:0 14px 36px rgba(34,28,77,.12);overflow:hidden}
 .lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:2.2%;margin:0 0 6.3%;color:#6b27d8;font-family:'Rubik',Arial,sans-serif;font-size:min(4.9vw,50px);font-weight:800;line-height:1;text-align:right;white-space:nowrap;letter-spacing:0}
 .bulb{font-size:1em;line-height:1;flex:none}
 .fact{font-family:'Rubik',Arial,sans-serif;font-size:min(3.0vw,31px);line-height:1.42;font-weight:500;white-space:pre-line;color:#222943;text-align:right;overflow:hidden}
@@ -38,7 +38,7 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
  .card{aspect-ratio:auto;overflow:visible;min-height:100vh;padding-bottom:0}
  .hero{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/3}
  .hero img{width:100%;height:100%;object-fit:cover;object-position:44% 48%}
- .fact-card{top:5.2vw;right:4vw;width:44%;max-height:43vw;border-radius:5.2vw;padding:4.5vw 4vw 4.8vw}
+ .fact-card{top:5.2vw;right:4vw;width:44%;max-height:43vw;border-radius:5.2vw;padding:4.5vw 4vw 4.8vw;background:rgba(255,255,255,.70)}
  .lead{font-size:clamp(24px,7.2vw,34px);gap:1.6vw;margin-bottom:3.8vw;font-weight:700}
  .fact{font-size:clamp(15px,4.25vw,20px);line-height:1.38}
  .lower{position:relative;left:auto;top:auto;width:88%;height:auto;min-height:48vw;margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible}
@@ -71,6 +71,8 @@ if 'function fitBox(' in s:
     s = re.sub(r'\n function fitBox\(.*?\n function fitCurrent\(\)\{.*?\n \}\n', helper, s, count=1, flags=re.S)
 else:
     s = s.replace(' function draw(){', helper + ' function draw(){', 1)
+
+s = re.sub(r'punch\.textContent\s*=\s*"<"\+item\.punch\.replace\(/\\n\{2,\}/g,"\\n"\)\+">";', 'punch.textContent=item.punch.replace(/\\n{2,}/g,"\\n");', s, count=1)
 
 if 'requestAnimationFrame(fitCurrent)' not in s:
     s = re.sub(r'(punch\.textContent=.*?;)(animalImage\.alt=)', r'\1requestAnimationFrame(fitCurrent);\2', s, count=1)
