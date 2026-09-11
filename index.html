@@ -13,7 +13,7 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .hero{position:relative;width:100%;aspect-ratio:2/3;background:#eceaf2;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:contain;object-position:center top;background:#eceaf2}
 .fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:43.4%;height:min(36vw,368px);background:rgba(255,255,255,.96);border-radius:min(3vw,30px);padding:min(2.6vw,27px) min(2.7vw,28px);box-shadow:0 14px 36px rgba(34,28,77,.13);overflow:hidden}
-.lead{display:flex;direction:rtl;flex-direction:row;align-items:center;justify-content:flex-start;gap:min(1vw,10px);color:#6727d4;font-family:Arial,sans-serif;font-size:clamp(26px,4.7vw,48px);font-weight:900;line-height:1;margin:0 0 min(2.2vw,23px);text-align:right;white-space:nowrap;letter-spacing:-1.2px}
+.lead{display:flex;direction:rtl;flex-direction:row;align-items:center;justify-content:flex-start;gap:min(1vw,10px);color:#6727d4;font-family:Arial,sans-serif;font-size:clamp(26px,4.7vw,48px);font-weight:700;line-height:1;margin:0 0 min(2.2vw,23px);text-align:right;white-space:nowrap;letter-spacing:0}
 .bulb{font-size:.95em;line-height:1;flex:none}
 .fact{font-family:Arial,sans-serif;font-size:clamp(15px,2.8vw,29px);line-height:1.34;font-weight:700;white-space:pre-line;color:#222943;text-align:right;height:calc(100% - min(7.2vw,74px));overflow:hidden}
 .lower{position:relative;z-index:8;width:87%;height:min(47.5vw,486px);margin:-75% auto min(2.5vw,26px);background:#fff;border-radius:min(3.4vw,35px);padding:min(1vw,10px) min(1.5vw,15px);box-shadow:0 12px 38px rgba(31,28,75,.14)}
@@ -28,12 +28,12 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .brand-name{direction:ltr;color:#9747ec;font-family:Arial,sans-serif;font-size:clamp(40px,5.8vw,60px);font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:min(1.1vw,11px)}
 .brand-line{font-family:Arial,sans-serif;font-size:clamp(14px,1.9vw,20px);line-height:1.4;font-weight:700;color:#f1eff8}
 .brand-joke{font-family:Arial,sans-serif;font-size:clamp(11px,1.55vw,16px);line-height:1.4;margin-top:min(.7vw,7px);color:#d4d1df}
-.brand-joke em{font-style:italic;font-weight:900;color:#fff}
+.brand-joke em{font-style:normal;font-weight:inherit;color:inherit}
 .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55}
 @media(max-width:680px){
  body{background:#fff}.shell{width:100%;box-shadow:none}
  .fact-card{top:6%;right:4.4%;width:43.4%;height:36vw;padding:2.6vw 2.7vw;border-radius:3vw}
- .lead{font-size:4.7vw;margin-bottom:2.2vw;gap:1vw;letter-spacing:-.4px}
+ .lead{font-size:4.7vw;margin-bottom:2.2vw;gap:1vw;letter-spacing:0}
  .fact{font-size:2.8vw;line-height:1.34;height:calc(100% - 7.2vw)}
  .lower{width:87%;height:47.5vw;margin-top:-75%;margin-bottom:2.5vw;border-radius:3.4vw}
  .punch{font-size:2.7vw;line-height:1.28}
