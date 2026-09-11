@@ -13,13 +13,13 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 .card{position:relative;width:100%;aspect-ratio:2/3;background:#fff;overflow:hidden}
 .hero{position:absolute;inset:0 auto auto 0;width:100%;height:58.6%;background:#e9e7ef;overflow:hidden}
 .hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:44% 48%}
-.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:47%;max-height:30%;background:linear-gradient(270deg,rgba(255,255,255,.44) 0%,rgba(255,255,255,.31) 72%,rgba(255,255,255,.16) 100%);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:3%;padding:2.8% 3.0% 3.0%;box-shadow:none;overflow:hidden;direction:rtl;text-align:right}
-.lead{position:relative;display:block;width:100%;direction:rtl;margin:0 0 4%;color:#6b27d8;font-family:'Rubik',Arial,sans-serif;font-size:min(4.35vw,45px);font-weight:800;line-height:1;text-align:right;white-space:nowrap;letter-spacing:0;padding-right:1.28em}
-.lead span:last-child{display:block;width:100%;text-align:right;direction:rtl}
-.bulb{position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1em;line-height:1}
-.fact{direction:rtl;font-family:'Rubik',Arial,sans-serif;font-size:min(2.95vw,30px);line-height:1.34;font-weight:500;white-space:normal;color:#222943;text-align:right;overflow:hidden;overflow-wrap:break-word;word-break:normal;hyphens:none}
+.fact-card{position:absolute;z-index:6;top:6%;right:4.4%;width:46%;background:linear-gradient(270deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 70%,rgba(255,255,255,.18) 100%);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:3%;padding:3.0% 3.0% 3.2%;box-shadow:none;overflow:visible;direction:rtl;text-align:right}
+.lead{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:.38em;width:100%;direction:rtl;margin:0 0 4.5%;color:#6b27d8;font-family:'Rubik',Arial,sans-serif;font-size:min(4.45vw,46px);font-weight:800;line-height:1.05;text-align:right;white-space:nowrap;letter-spacing:0}
+.lead span:last-child{display:inline-block;text-align:right;direction:rtl}
+.bulb{position:static;transform:none;display:inline-flex;align-items:center;justify-content:center;font-size:.92em;line-height:1;flex:none}
+.fact{direction:rtl;font-family:'Rubik',Arial,sans-serif;font-size:min(2.8vw,29px);line-height:1.38;font-weight:500;white-space:normal;color:#222943;text-align:right;overflow:visible;overflow-wrap:normal;word-break:normal;hyphens:none}
 .lower{position:absolute;z-index:8;left:6.4%;top:50.1%;width:87.2%;height:31.8%;margin:0;background:#fff;border-radius:3.2% 3.2% 2.6% 2.6%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden}
-.punch{position:absolute;left:1.7%;right:1.7%;top:2.2%;height:32.5%;display:flex;align-items:center;justify-content:center;padding:2.0% 4%;font-family:'Rubik',Arial,sans-serif;font-size:min(2.55vw,26px);line-height:1.32;font-weight:600;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#faf7ff 0%,#efe6fb 100%);border-radius:2.7%;overflow:hidden}
+.punch{position:absolute;left:1.7%;right:1.7%;top:2.2%;height:32.5%;display:flex;align-items:center;justify-content:center;padding:2.3% 4%;font-family:'Rubik',Arial,sans-serif;font-size:min(2.75vw,28px);line-height:1.34;font-weight:600;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#faf7ff 0%,#efe6fb 100%);border-radius:2.7%;overflow:hidden}
 .divider{position:absolute;left:9%;right:9%;top:39.8%;display:flex;align-items:center;gap:2%;margin:0;color:#9498ad}
 .divider:before,.divider:after{content:"";height:1px;background:#d7d9e3;flex:1}
 .divider span{font-size:min(3vw,30px);line-height:1;color:#9294a8}
@@ -39,12 +39,12 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
  .card{aspect-ratio:auto;overflow:visible;min-height:100vh;padding-bottom:0}
  .hero{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/3}
  .hero img{width:100%;height:100%;object-fit:cover;object-position:44% 48%}
- .fact-card{top:5.2vw;right:3.2vw;width:54%;max-height:51vw;border-radius:5.2vw;padding:3.8vw 3.5vw 4vw;background:linear-gradient(270deg,rgba(255,255,255,.48) 0%,rgba(255,255,255,.35) 70%,rgba(255,255,255,.20) 100%);box-shadow:none}
- .lead{font-size:clamp(21px,6vw,29px);margin-bottom:2.4vw;font-weight:700;padding-right:1.25em}
- .fact{font-size:clamp(14px,3.95vw,18.5px);line-height:1.3;white-space:normal;overflow-wrap:break-word;word-break:normal}
+ .fact-card{top:5.2vw;right:3.2vw;width:54%;max-height:none;border-radius:5.2vw;padding:3.8vw 3.5vw 4vw;background:linear-gradient(270deg,rgba(255,255,255,.50) 0%,rgba(255,255,255,.37) 70%,rgba(255,255,255,.22) 100%);overflow:visible}
+ .lead{font-size:clamp(21px,6vw,29px);margin-bottom:2.4vw;font-weight:700;line-height:1.05;gap:.32em}
+ .fact{font-size:clamp(13.5px,3.75vw,18px);line-height:1.30;white-space:normal;overflow:visible;overflow-wrap:normal;word-break:normal}
  .lower{position:relative;left:auto;top:auto;width:88%;height:auto;min-height:48vw;margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible}
- .punch{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:23vw;padding:4vw 4.2vw;font-size:clamp(15px,3.95vw,19px);line-height:1.34;border-radius:5vw;overflow:visible}
- .divider{position:relative;left:auto;right:auto;top:auto;margin:4.5vw 8% 3.2vw;gap:3vw}
+ .punch{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:24vw;padding:4.4vw 4vw;font-size:clamp(15px,4.05vw,19.5px);line-height:1.36;border-radius:5vw;overflow:visible}
+ .divider{position:relative;left:auto;right:auto;top:auto;margin:4.6vw 8% 3.3vw;gap:3vw}
  .divider span{font-size:6vw}
  .ending{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:0;padding:0 4vw;font-size:clamp(14px,3.9vw,18px);line-height:1.45;overflow:visible}
  .btn{position:relative;left:auto;bottom:auto;transform:none;width:72%;height:auto;min-height:15vw;margin:5vw auto 0;padding:3.2vw 5vw;font-size:clamp(18px,5vw,23px);line-height:1.05}
@@ -56,10 +56,10 @@ body{background:#efedf5;color:#202640;overflow-x:hidden}
 
 @media(max-width:380px){
  .fact-card{width:55%;right:2.2vw;padding-left:3vw;padding-right:3vw}
- .lead{font-size:5.8vw;padding-right:1.22em}
- .fact{font-size:3.8vw}
+ .lead{font-size:5.8vw}
+ .fact{font-size:3.65vw}
  .lower{width:90%;margin-top:-52vw}
- .punch{font-size:3.8vw}
+ .punch{font-size:3.9vw}
  .btn{width:78%}
 }
 </style>'''
@@ -68,7 +68,7 @@ s = re.sub(r'<style>.*?</style>', css, s, count=1, flags=re.S)
 s = re.sub(r'\s*<div class="dots">\.<br>\.<br>\.</div>', '', s, count=1)
 s = s.replace('<div class="lead"><span>הידעת ש...</span><span class="bulb">💡</span></div>', '<div class="lead"><span class="bulb">💡</span><span>הידעת ש...</span></div>')
 
-helper = '''\n function fitBox(el,maxPx,minPx){\n  if(!el)return;\n  el.style.fontSize='';\n  let px=maxPx; el.style.fontSize=px+"px";\n  while((el.scrollHeight>el.clientHeight+1 || el.scrollWidth>el.clientWidth+1) && px>minPx){px-=0.5;el.style.fontSize=px+"px";}\n }\n function fitCurrent(){\n  const shell=document.querySelector('.shell');\n  const w=Math.min(shell?.clientWidth || window.innerWidth || 1024,1024);\n  if(w<=680){\n    const card=document.querySelector('.fact-card');\n    if(card){\n      const leadEl=card.querySelector('.lead');\n      const cs=getComputedStyle(card);\n      const available=Math.max(30, card.clientHeight - (leadEl?.offsetHeight||0) - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 8);\n      fact.style.maxHeight=available+'px';\n      fitBox(fact,Math.min(18.5,w*0.0395),12.5);\n    }\n    fitBox(punch,Math.min(19,w*0.0395),13.5);\n    return;\n  }\n  fact.style.maxHeight='';\n  fitBox(fact,Math.min(30,w*0.0295),11);\n  fitBox(punch,Math.min(26,w*0.0255),10);\n }\n'''
+helper = '''\n function fitBox(el,maxPx,minPx){\n  if(!el)return;\n  el.style.fontSize='';\n  let px=maxPx; el.style.fontSize=px+"px";\n  while((el.scrollHeight>el.clientHeight+1 || el.scrollWidth>el.clientWidth+1) && px>minPx){px-=0.5;el.style.fontSize=px+"px";}\n }\n function fitCurrent(){\n  const shell=document.querySelector('.shell');\n  const w=Math.min(shell?.clientWidth || window.innerWidth || 1024,1024);\n  fact.style.maxHeight='';\n  if(w<=680){\n    fact.style.fontSize='';\n    punch.style.fontSize='';\n    return;\n  }\n  fitBox(fact,Math.min(29,w*0.028),11);\n  fitBox(punch,Math.min(28,w*0.0275),10.5);\n }\n'''
 if 'function fitBox(' in s:
     s = re.sub(r'\n function fitBox\(.*?\n function fitCurrent\(\)\{.*?\n \}\n', helper, s, count=1, flags=re.S)
 else:
