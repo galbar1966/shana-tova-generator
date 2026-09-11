@@ -17,6 +17,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Apply fixed reference geometry
         run: python .github/scripts/apply_reference.py
+      - name: Repair fact card alignment and translucency
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(".lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:2.2%;", ".lead{display:grid;grid-template-columns:minmax(0,1fr) auto;direction:ltr;align-items:center;gap:2.2%;width:100%;")
+          s = s.replace(".bulb{font-size:1em;line-height:1;flex:none}", ".bulb{font-size:1em;line-height:1;grid-column:2}.lead span:not(.bulb){grid-column:1;direction:rtl;text-align:right;justify-self:end}")
+          s = s.replace("background:linear-gradient(270deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.14) 70%,rgba(255,255,255,.02) 100%);backdrop-filter:none;-webkit-backdrop-filter:none", "background:rgba(255,255,255,.58);backdrop-filter:blur(1.5px);-webkit-backdrop-filter:blur(1.5px)")
+          s = s.replace("background:linear-gradient(270deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.11) 68%,rgba(255,255,255,.015) 100%);box-shadow:none", "background:rgba(255,255,255,.54);backdrop-filter:blur(1.25px);-webkit-backdrop-filter:blur(1.25px);box-shadow:none")
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Repair runtime JS
         run: |
           python - <<'PY'
@@ -51,6 +63,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Restore working greeting runtime"
+            git commit -m "Fix fact heading alignment and card translucency"
             git push
           fi
