@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/normalize-real-images.yml'
-      - '.github/scripts/apply_reference.py'
+      - '.github/scripts/add_social_preview.py'
   workflow_dispatch:
 
 permissions:
@@ -15,126 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply fixed reference geometry
-        run: python .github/scripts/apply_reference.py
-
-      - name: Polish lower card and branding
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('index.html')
-          s = p.read_text(encoding='utf-8')
-
-          s = s.replace(
-            "family=Rubik:wght@400;500;600;700;800;900&display=swap",
-            "family=Fredoka:wght@600;700&family=Rubik:wght@400;500;600;700;800;900&display=swap"
-          )
-
-          s = s.replace(
-            "border-radius:3.2% 3.2% 2.6% 2.6%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden",
-            "border-radius:3.2% 3.2% 6.4% 6.4%;box-shadow:0 12px 38px rgba(31,28,75,.14);overflow:hidden"
-          )
-
-          s = s.replace(
-            "margin:-54vw auto 5vw;padding:3vw 2.8vw 4.5vw;border-radius:6.8vw;overflow:visible",
-            "margin:-54vw auto 3vw;padding:3vw 2.8vw 5vw;border-radius:6.8vw 6.8vw 10vw 10vw;overflow:visible"
-          )
-
-          s = s.replace(
-            ".brand-name{direction:ltr;color:#9847ee;font-family:'Arial Black','Rubik',Arial,sans-serif;font-size:min(5.9vw,60px);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:1.1%}",
-            ".brand-name{direction:ltr;color:#9847ee;font-family:'Fredoka','Rubik',Arial,sans-serif;font-size:min(5.9vw,60px);font-weight:700;letter-spacing:-2.4px;line-height:.95;margin-bottom:1.1%}"
-          )
-
-          s = s.replace(
-            ".brand-name{font-size:clamp(38px,11vw,52px);margin-bottom:2vw;letter-spacing:-1.5px}",
-            ".brand-name{font-family:'Fredoka','Rubik',Arial,sans-serif;font-size:clamp(38px,11vw,52px);font-weight:700;margin-bottom:2vw;letter-spacing:-2px}"
-          )
-
-          s = s.replace(
-            "תשעה חודשים פנימה היא מסתכלת",
-            "תשעה חודשים מאוחר יותר היא מסתכלת"
-          )
-
-          p.write_text(s, encoding='utf-8')
-          PY
-
-      - name: Repair fact card alignment and translucency
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('index.html')
-          s = p.read_text(encoding='utf-8')
-          s = s.replace(".lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:2.2%;", ".lead{display:grid;grid-template-columns:minmax(0,1fr) auto;direction:ltr;align-items:center;gap:2.2%;width:100%;")
-          s = s.replace(".bulb{font-size:1em;line-height:1;flex:none}", ".bulb{font-size:1em;line-height:1;grid-column:2}.lead span:not(.bulb){grid-column:1;direction:rtl;text-align:right;justify-self:end}")
-          s = s.replace("background:linear-gradient(270deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.14) 70%,rgba(255,255,255,.02) 100%);backdrop-filter:none;-webkit-backdrop-filter:none", "background:rgba(255,255,255,.58);backdrop-filter:blur(1.5px);-webkit-backdrop-filter:blur(1.5px)")
-          s = s.replace("background:linear-gradient(270deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.11) 68%,rgba(255,255,255,.015) 100%);box-shadow:none", "background:rgba(255,255,255,.54);backdrop-filter:blur(1.25px);-webkit-backdrop-filter:blur(1.25px);box-shadow:none")
-          p.write_text(s, encoding='utf-8')
-          PY
-
-      - name: Repair runtime JS
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          p = Path('index.html')
-          s = p.read_text(encoding='utf-8')
-          draw = r'''function draw(){
-            let available=pool.filter(x=>!seen.includes(x.id));
-            if(!available.length){seen=[];available=pool.slice();}
-            const item=available[Math.floor(Math.random()*available.length)];
-            seen.push(item.id);save();
-            fact.textContent=item.fact;
-            punch.textContent=item.punch.replace(/[<>]/g,"").replace(/\n{2,}/g,"\n");
-            requestAnimationFrame(fitCurrent);
-            animalImage.alt=item.title;
-            animalImage.style.display="block";
-            animalImage.onload=null;
-            animalImage.onerror=()=>{animalImage.style.display="none";};
-            animalImage.src=IMAGE_BY_ID[item.id];
-            card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");
-          }'''
-          pattern = r'function draw\(\)\{.*?\}\s*next\.addEventListener'
-          s = re.sub(pattern, lambda m: draw + "\n next.addEventListener", s, count=1, flags=re.S)
-          p.write_text(s, encoding='utf-8')
-          PY
-
-      - name: Add WhatsApp social preview metadata
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          p = Path('index.html')
-          s = p.read_text(encoding='utf-8')
-
-          block = '''<title>שנה טובה, הידעת? 💡😈</title>
-<meta name="description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="he_IL">
-<meta property="og:site_name" content="שנה טובה, הידעת?">
-<meta property="og:title" content="שנה טובה, הידעת? 💡😈">
-<meta property="og:description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
-<meta property="og:url" content="https://galbar1966.github.io/shana-tova-generator/">
-<meta property="og:image" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">
-<meta property="og:image:secure_url" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="קואלה עייפה ומשועשעת על עץ">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="שנה טובה, הידעת? 💡😈">
-<meta name="twitter:description" content="זה היה חייב להגיע דווקא אליך 🤣🌹">
-<meta name="twitter:image" content="https://galbar1966.github.io/shana-tova-generator/assets/og-preview.jpg">'''
-
-          s = re.sub(r'<title>.*?</title>\s*', '', s, count=1, flags=re.S)
-          s = re.sub(r'<meta\s+(?:name|property)="(?:description|og:[^"]+|twitter:[^"]+)"[^>]*>\s*', '', s, flags=re.I)
-          marker = '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
-          if marker not in s:
-              raise SystemExit('viewport marker not found')
-          s = s.replace(marker, marker + '\n' + block, 1)
-          p.write_text(s, encoding='utf-8')
-          PY
-
-      - name: Commit layout
+      - name: Add social preview metadata
+        run: python .github/scripts/add_social_preview.py
+      - name: Commit social preview
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
