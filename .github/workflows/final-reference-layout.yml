@@ -1,0 +1,95 @@
+name: Apply final approved reference layout
+
+on:
+  push:
+    paths:
+      - '.github/workflows/final-reference-layout.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply approved reference composition
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          css = r'''<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,sans-serif}
+body{background:#f4f3f8;color:#1d2340;overflow-x:hidden}
+.shell{width:min(100%,760px);margin:0 auto;min-height:100vh;background:#fff;overflow:hidden;box-shadow:0 18px 60px rgba(28,24,70,.12)}
+.card{position:relative;background:#fff;overflow:hidden}
+.hero{position:relative;width:100%;aspect-ratio:4/3;background:#e9e7ef;overflow:hidden}
+.hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:center center;transition:opacity .18s ease}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0) 72%,rgba(255,255,255,.10));pointer-events:none}
+.fact-card{position:absolute;z-index:5;top:5.6%;right:4.8%;width:43.5%;background:rgba(255,255,255,.97);border-radius:26px;padding:28px 26px 30px;box-shadow:0 16px 38px rgba(34,28,77,.16)}
+.lead{display:flex;direction:rtl;align-items:center;justify-content:flex-start;gap:8px;color:#6828d8;font-size:clamp(30px,4.6vw,42px);font-weight:900;line-height:1;margin:0 0 22px;white-space:nowrap;letter-spacing:-.6px}
+.bulb{font-size:.95em;line-height:1;flex:none}
+.fact{font-size:clamp(21px,2.85vw,28px);line-height:1.42;font-weight:700;white-space:pre-line;color:#222943;text-align:right}
+.lower{position:relative;z-index:8;width:100%;margin:-28px auto 0;background:#fff;border-radius:34px 34px 0 0;padding:28px 6.8% 28px;box-shadow:0 -9px 28px rgba(31,28,75,.10)}
+.dots{font-size:18px;line-height:.9;font-weight:900;color:#7833e9;text-align:center;margin:0 0 16px}
+.punch{font-size:clamp(20px,2.7vw,27px);line-height:1.48;font-weight:700;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#fbf8ff 0%,#f1e9fd 100%);border:1px solid #e4d7f8;border-radius:24px;padding:25px 27px;box-shadow:inset 4px 0 0 #b98bf5}
+.divider{display:flex;align-items:center;gap:16px;margin:24px 10% 17px;color:#9698aa}
+.divider:before,.divider:after{content:"";height:1px;background:#d7d9e3;flex:1}
+.divider span{font-size:26px;line-height:1;color:#9294a8}
+.ending{text-align:center;color:#7d8198;font-size:clamp(18px,2.2vw,23px);line-height:1.48;font-weight:700;padding:0 8px}
+.btn{display:block;width:64%;min-width:360px;margin:24px auto 0;border:0;border-radius:27px;padding:17px 22px;background:linear-gradient(135deg,#8738ef 0%,#6522ce 100%);color:#fff;font:900 clamp(22px,2.8vw,29px)/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 13px 28px rgba(98,32,202,.30)}
+.ltr{direction:ltr;display:inline-block}
+.brand{position:relative;background:linear-gradient(145deg,#20204a 0%,#2b2d64 100%);color:#fff;text-align:center;padding:44px 18px 50px;margin-top:0;border-radius:50% 50% 0 0 / 8% 8% 0 0}
+.brand-name{direction:ltr;color:#9747ec;font-size:clamp(44px,5.5vw,58px);font-weight:900;letter-spacing:-1.4px;line-height:1;margin-bottom:10px}
+.brand-line{font-size:clamp(16px,1.9vw,21px);line-height:1.45;font-weight:700;color:#f1eff8}
+.brand-joke{font-size:clamp(13px,1.55vw,17px);line-height:1.45;margin-top:7px;color:#d4d1df}
+.brand-joke em{font-style:italic;font-weight:900;color:#fff}
+.error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55}
+@media(max-width:680px){
+  body{background:#fff}
+  .shell{width:100%;box-shadow:none}
+  .hero{aspect-ratio:1.18/1}
+  .fact-card{top:4.5%;right:4%;width:47%;padding:19px 16px 21px;border-radius:20px}
+  .lead{font-size:clamp(24px,6.2vw,32px);margin-bottom:15px;gap:5px}
+  .fact{font-size:clamp(15px,4.05vw,20px);line-height:1.4}
+  .lower{margin-top:-24px;padding:21px 5.5% 24px;border-radius:27px 27px 0 0}
+  .dots{font-size:15px;margin-bottom:12px}
+  .punch{font-size:clamp(15px,4vw,19px);line-height:1.46;padding:18px 15px;border-radius:19px}
+  .divider{margin:18px 8% 13px}
+  .divider span{font-size:23px}
+  .ending{font-size:clamp(14px,3.7vw,17px);padding:0 4px}
+  .btn{width:76%;min-width:0;font-size:clamp(18px,4.8vw,22px);padding:14px 16px;border-radius:22px;margin-top:17px}
+  .brand{padding:31px 14px calc(38px + env(safe-area-inset-bottom));border-radius:50% 50% 0 0 / 6% 6% 0 0}
+  .brand-name{font-size:38px}
+  .brand-line{font-size:14px}
+  .brand-joke{font-size:11.5px}
+}
+</style>'''
+
+          s = re.sub(r'<style>.*?</style>', css, s, count=1, flags=re.S)
+          s = s.replace(
+            '      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n    </div>\n    <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>',
+            '      <div class="ending">אה, כן, וכמעט שכחתי...<br>שתהיה לך שנה טובה ומלאה בחיוכים 🤣🌹</div>\n      <button class="btn" id="next" type="button"><span class="ltr">Hit me, baby,<br>One more time</span></button>\n    </div>'
+          )
+          s = s.replace('.webp`]', '.png`]')
+          s = s.replace('.webp`));', '.png`));')
+          p.write_text(s, encoding='utf-8')
+
+      - name: Commit layout
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Rebuild page to approved visual reference"
+            git push
+          fi
