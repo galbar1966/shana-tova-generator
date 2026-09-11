@@ -39,7 +39,8 @@ jobs:
             animalImage.src=IMAGE_BY_ID[item.id];
             card.classList.remove("fresh");void card.offsetWidth;card.classList.add("fresh");
           }'''
-          s = re.sub(r'function draw\(\)\{.*?\}\s*next\.addEventListener', draw + "\n next.addEventListener", s, count=1, flags=re.S)
+          pattern = r'function draw\(\)\{.*?\}\s*next\.addEventListener'
+          s = re.sub(pattern, lambda m: draw + "\n next.addEventListener", s, count=1, flags=re.S)
           p.write_text(s, encoding='utf-8')
           PY
       - name: Commit layout
@@ -50,6 +51,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Repair generated runtime and restore greeting rendering"
+            git commit -m "Restore working greeting runtime"
             git push
           fi
