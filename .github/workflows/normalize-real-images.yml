@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Rebuild page proportions to approved reference
+      - name: Match approved reference composition in full
         shell: python
         run: |
           from pathlib import Path
@@ -31,22 +31,21 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .shell{width:min(100%,1024px);margin:0 auto;min-height:100vh;background:#fff;overflow:hidden;box-shadow:0 18px 60px rgba(28,24,70,.12)}
 .card{position:relative;background:#fff;overflow:hidden}
 .hero{position:relative;width:100%;aspect-ratio:1.14/1;background:#e9e7ef;overflow:hidden}
-.hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 46%;}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0) 78%,rgba(255,255,255,.06));pointer-events:none}
-.fact-card{position:absolute;z-index:5;top:6.1%;right:4.5%;width:43.5%;background:rgba(255,255,255,.97);border-radius:30px;padding:34px 32px 36px;box-shadow:0 16px 42px rgba(34,28,77,.16)}
-.lead{display:flex;direction:rtl;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:10px;color:#6828d8;font-size:clamp(36px,4.5vw,48px);font-weight:900;line-height:1;margin:0 0 28px;white-space:nowrap;letter-spacing:-.8px}
-.bulb{font-size:.98em;line-height:1;flex:none}
-.fact{font-size:clamp(24px,2.75vw,32px);line-height:1.42;font-weight:700;white-space:pre-line;color:#222943;text-align:right}
-.lower{position:relative;z-index:8;width:87%;margin:-12.5% auto 30px;background:#fff;border-radius:34px;padding:20px 18px 24px;box-shadow:0 12px 38px rgba(31,28,75,.14)}
-.dots{font-size:18px;line-height:.9;font-weight:900;color:#7833e9;text-align:center;margin:0 0 18px}
-.punch{font-size:clamp(22px,2.6vw,30px);line-height:1.45;font-weight:700;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#fbf8ff 0%,#f1e9fd 100%);border:1px solid #eadff8;border-radius:26px;padding:28px 34px;box-shadow:none}
-.divider{display:flex;align-items:center;gap:18px;margin:28px 9% 18px;color:#9498ad}
+.hero img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 44%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 78%,rgba(255,255,255,.08) 100%);pointer-events:none}
+.fact-card{position:absolute;z-index:5;top:5.9%;right:4.4%;width:43.5%;background:rgba(255,255,255,.97);border-radius:30px;padding:34px 32px 37px;box-shadow:0 16px 42px rgba(34,28,77,.16)}
+.lead{display:flex;direction:rtl;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:11px;color:#6828d8;font-size:clamp(38px,4.7vw,50px);font-weight:900;line-height:1;margin:0 0 28px;white-space:nowrap;letter-spacing:-.9px}
+.bulb{font-size:1em;line-height:1;flex:none}
+.fact{font-size:clamp(24px,2.8vw,32px);line-height:1.42;font-weight:700;white-space:pre-line;color:#222943;text-align:right}
+.lower{position:relative;z-index:8;width:87%;margin:-12.6% auto 28px;background:#fff;border-radius:34px;padding:12px 18px 24px;box-shadow:0 12px 38px rgba(31,28,75,.14)}
+.punch{font-size:clamp(23px,2.75vw,31px);line-height:1.45;font-weight:700;white-space:pre-line;text-align:center;color:#202640;background:linear-gradient(135deg,#fbf8ff 0%,#f1e9fd 100%);border:0;border-radius:26px;padding:29px 34px;box-shadow:none}
+.divider{display:flex;align-items:center;gap:18px;margin:27px 9% 18px;color:#9498ad}
 .divider:before,.divider:after{content:"";height:1px;background:#d7d9e3;flex:1}
-.divider span{font-size:29px;line-height:1;color:#9294a8}
-.ending{text-align:center;color:#85899d;font-size:clamp(19px,2.2vw,25px);line-height:1.5;font-weight:700;padding:0 20px 4px}
-.btn{display:block;width:58%;min-width:0;margin:24px auto 4px;border:0;border-radius:28px;padding:18px 24px;background:linear-gradient(135deg,#8738ef 0%,#6522ce 100%);color:#fff;font:900 clamp(24px,2.7vw,31px)/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(98,32,202,.30)}
+.divider span{font-size:30px;line-height:1;color:#9294a8}
+.ending{text-align:center;color:#85899d;font-size:clamp(19px,2.2vw,25px);line-height:1.48;font-weight:700;padding:0 20px 4px}
+.btn{display:block;width:58%;min-width:0;margin:25px auto 5px;border:0;border-radius:28px;padding:18px 24px;background:linear-gradient(135deg,#8738ef 0%,#6522ce 100%);color:#fff;font:900 clamp(24px,2.7vw,31px)/1.08 Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(98,32,202,.30)}
 .ltr{direction:ltr;display:inline-block}
-.brand{position:relative;background:linear-gradient(145deg,#20204a 0%,#2b2d64 100%);color:#fff;text-align:center;padding:52px 18px 58px;border-radius:50% 50% 0 0 / 6.5% 6.5% 0 0}
+.brand{position:relative;background:linear-gradient(145deg,#20204a 0%,#2b2d64 100%);color:#fff;text-align:center;padding:54px 18px 60px;border-radius:50% 50% 0 0 / 6.5% 6.5% 0 0}
 .brand-name{direction:ltr;color:#9747ec;font-size:clamp(52px,5.8vw,66px);font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:12px}
 .brand-line{font-size:clamp(18px,1.9vw,23px);line-height:1.45;font-weight:700;color:#f1eff8}
 .brand-joke{font-size:clamp(14px,1.55vw,18px);line-height:1.45;margin-top:7px;color:#d4d1df}
@@ -54,12 +53,11 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 .error{margin:24px;background:#fff;border-radius:24px;padding:30px 22px;text-align:center;font-size:18px;line-height:1.55}
 @media(max-width:680px){
  body{background:#fff}.shell{width:100%;box-shadow:none}
- .hero{aspect-ratio:1.14/1}.hero img{object-position:center 46%}
+ .hero{aspect-ratio:1.14/1}.hero img{object-position:center 44%}
  .fact-card{top:5%;right:4%;width:46%;padding:20px 17px 22px;border-radius:21px}
- .lead{font-size:clamp(25px,6vw,34px);margin-bottom:17px;gap:6px}
+ .lead{font-size:clamp(26px,6.2vw,34px);margin-bottom:17px;gap:6px}
  .fact{font-size:clamp(16px,4.05vw,21px);line-height:1.4}
- .lower{width:88%;margin-top:-12%;margin-bottom:20px;padding:16px 12px 18px;border-radius:28px}
- .dots{font-size:15px;margin-bottom:13px}
+ .lower{width:88%;margin-top:-12%;margin-bottom:20px;padding:10px 12px 18px;border-radius:28px}
  .punch{font-size:clamp(16px,4vw,20px);line-height:1.46;padding:20px 17px;border-radius:20px}
  .divider{margin:20px 8% 14px}.divider span{font-size:23px}
  .ending{font-size:clamp(14px,3.7vw,17px);padding:0 8px}
@@ -70,9 +68,10 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
 </style>'''
 
           s = re.sub(r'<style>.*?</style>', css, s, count=1, flags=re.S)
+          s = re.sub(r'\s*<div class="dots">\.<br>\.<br>\.</div>', '', s, count=1)
           p.write_text(s, encoding='utf-8')
 
-      - name: Commit approved composition
+      - name: Commit exact-reference pass
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -80,6 +79,6 @@ body{background:#f3f2f8;color:#202640;overflow-x:hidden}
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Rebuild page to approved reference proportions"
+            git commit -m "Match approved reference composition in full"
             git push
           fi
